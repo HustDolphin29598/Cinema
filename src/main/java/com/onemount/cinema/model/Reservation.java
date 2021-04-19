@@ -6,12 +6,23 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@Entity(name = "reservation")
+@Table(name = "reservation")
 public class Reservation {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private int orderLineId;
+
     private ReservationStatus status;
+
     private PaymentMethod paymentMethod;
+
+    private int reservationId;
 }

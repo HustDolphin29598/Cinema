@@ -1,6 +1,8 @@
 package com.onemount.cinema.controller;
 
+import com.onemount.cinema.model.Actor;
 import com.onemount.cinema.model.Cinema;
+import com.onemount.cinema.repository.ActorRepository;
 import com.onemount.cinema.repository.CinemaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,10 +16,10 @@ import java.util.List;
 public class MainController {
 
     @Autowired
-    CinemaRepository cinemaRepository;
+    ActorRepository actorRepository;
 
     @GetMapping("/test")
-    public List<Cinema> getALlCinemas(){
-        return cinemaRepository.getAllCinemas();
+    public List<Actor> getALlCinemas(){
+        return actorRepository.findAll();
     }
 }
