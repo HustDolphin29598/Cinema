@@ -38,7 +38,17 @@ public class Film {
     @Column(name = "status")
     private FilmStatus status;
 
-    @ManyToMany(mappedBy = "films")
+    @ManyToMany()
+    @JoinTable(name = "cast",
+            joinColumns = @JoinColumn(name = "film_id"),
+            inverseJoinColumns = @JoinColumn(name = "actor_id"))
     @JsonBackReference
     private Set<Actor> actors;
+
+    @ManyToMany()
+    @JoinTable(name = "cast",
+            joinColumns = @JoinColumn(name = "film_id"),
+            inverseJoinColumns = @JoinColumn(name = "actor_id"))
+    @JsonBackReference
+    private Set<Genre> genres;
 }

@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Data
@@ -21,4 +23,9 @@ public class Cinema {
     private String name;
 
     private String address;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = false)
+    @JoinColumn(name = "cinema_id")
+    private List<Staff> staffs = new ArrayList<>();
+
 }

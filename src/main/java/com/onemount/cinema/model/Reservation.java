@@ -18,11 +18,11 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private int orderLineId;
+    private OrderLine orderLine;
 
     private ReservationStatus status;
 
     private PaymentMethod paymentMethod;
 
-    private int reservationId;
+    private Reservation reservation;
 }

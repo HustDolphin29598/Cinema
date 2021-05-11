@@ -21,16 +21,12 @@ public class Actor {
 
     private String name;
 
-    @Column()
     private Integer age;
 
     private String country;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "actors", fetch = FetchType.LAZY)
     @JsonManagedReference
-    @JoinTable(name = "cast",
-            joinColumns = @JoinColumn(name = "actor_id"),
-            inverseJoinColumns = @JoinColumn(name = "film_id"))
     private List<Film> films;
 
 }

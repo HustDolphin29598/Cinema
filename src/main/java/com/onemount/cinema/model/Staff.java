@@ -22,5 +22,7 @@ public class Staff {
 
     private int age;
 
-    private int cinemaId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="cinema_id")
+    private Cinema cinema;
 }

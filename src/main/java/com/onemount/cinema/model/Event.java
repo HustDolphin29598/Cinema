@@ -22,9 +22,11 @@ public class Event {
 
     private Date endTime;
 
-    private int filmId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="film_id")
+    private Film film;
 
-    private int seatId;
+    private Seat seat;
 
     private int price;
 

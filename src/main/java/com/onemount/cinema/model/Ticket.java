@@ -16,7 +16,7 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private int reservationId;
+    private Reservation reservation;
 
     private String code;
 }

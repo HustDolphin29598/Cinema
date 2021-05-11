@@ -19,5 +19,5 @@ public class Room {
 
     private String name;
 
-    private int cinemaId;
+    private Cinema cinema;
 }
