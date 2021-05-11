@@ -9,7 +9,6 @@ import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity(name = "`order`")
 @Table(name = "`order`")
 public class Order {

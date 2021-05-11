@@ -11,7 +11,6 @@ import java.util.List;
 @Entity(name = "actor")
 @Table(name = "actor")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class Actor {
 
@@ -21,7 +20,7 @@ public class Actor {
 
     private String name;
 
-    private Integer age;
+    private int age;
 
     private String country;
 
@@ -29,4 +28,14 @@ public class Actor {
     @JsonManagedReference
     private List<Film> films;
 
+    public Actor(String name, int age, String country){
+        this.name = name;
+        this.age = age;
+        this.country = country;
+    }
+
+    public Actor(String name, String country){
+        this.name = name;
+        this.country = country;
+    }
 }

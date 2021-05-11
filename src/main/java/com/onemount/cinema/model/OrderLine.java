@@ -9,7 +9,6 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "order_line")
 @Table(name = "order_line")

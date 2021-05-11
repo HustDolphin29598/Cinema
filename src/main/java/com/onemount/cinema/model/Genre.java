@@ -8,7 +8,6 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "genre")
 @Table(name = "genre")
@@ -23,4 +22,9 @@ public class Genre {
 
     @ManyToMany(mappedBy = "genres", fetch = FetchType.LAZY)
     private Set<Film> films;
+
+    public Genre(String name, String description){
+        this.name = name;
+        this.description = description;
+    }
 }
