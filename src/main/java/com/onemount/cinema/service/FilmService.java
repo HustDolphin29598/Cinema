@@ -7,11 +7,16 @@ import com.onemount.cinema.repository.FilmRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
 public class FilmService {
+
+    @PersistenceContext
+    private EntityManager em;
 
     @Autowired
     private FilmRepository filmRepository;
@@ -35,12 +40,12 @@ public class FilmService {
         Genre genre3 = new Genre("Cartoon","");
         Genre genre4 = new Genre("Fiction","");
 
-        film1.getActors().add(actor1);
-        film1.getActors().add(actor2);
-        film1.getActors().add(actor3);
-        film1.getActors().add(actor4);
-        film1.getGenres().add(genre1);
-        film1.getGenres().add(genre2);
+        film1.addActor(actor1);
+        film1.addActor(actor2);
+        film1.addActor(actor3);
+        film1.addActor(actor4);
+        film1.addGenre(genre1);
+        film1.addGenre(genre2);
 
         filmRepository.save(film1);
 

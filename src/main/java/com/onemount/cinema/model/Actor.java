@@ -1,11 +1,13 @@
 package com.onemount.cinema.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "actor")
@@ -24,9 +26,9 @@ public class Actor {
 
     private String country;
 
-    @ManyToMany(mappedBy = "actors", fetch = FetchType.LAZY)
-    @JsonManagedReference
-    private List<Film> films;
+    @ManyToMany(mappedBy = "actors", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonBackReference
+    private List<Film> films = new ArrayList<>();
 
     public Actor(String name, int age, String country){
         this.name = name;

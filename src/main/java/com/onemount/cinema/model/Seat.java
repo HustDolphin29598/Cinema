@@ -20,5 +20,5 @@ public class Seat {
     @Column(name = "column_num")
     private String column;
 
-    private Room room;
+//    private Room room;
 }

@@ -25,7 +25,7 @@ public class Event {
     @JoinColumn(name="film_id")
     private Film film;
 
-    private Seat seat;
+//    private Seat seat;
 
     private int price;
 

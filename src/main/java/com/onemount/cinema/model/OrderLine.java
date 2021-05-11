@@ -21,11 +21,11 @@ public class OrderLine {
 
     private Date updatedAt;
 
-    private Event event;
-
-    private Order order;
-
-    private Customer customer;
+//    private Event event;
+//
+//    private Order order;
+//
+//    private Customer customer;
 
     private OrderLineStatus status;
 }
