@@ -81,9 +81,9 @@ public class GenerateDataService {
         filmRepository.save(film2);
 
         Cinema cinema1 = new Cinema("CGV Ba Trieu", "40 Ba Trieu, Ha Noi");
-//        Cinema cinema2 = new Cinema("CGV Kim Ma", "120 Kim Ma, Ha Noi");
+        Cinema cinema2 = new Cinema("CGV Kim Ma", "120 Kim Ma, Ha Noi");
         generateCinemaAndEvent(cinema1, film1);
-//        generateCinemaAndEvent(cinema2, film2);
+        generateCinemaAndEvent(cinema2, film2);
 
     }
 
@@ -99,7 +99,7 @@ public class GenerateDataService {
         Room room1 = new Room("A");
         room1 = generateSeatAndEvent(room1, film);
         Room room2 = new Room("B");
-//        room2 = generateSeatAndEvent(room2, film);
+        room2 = generateSeatAndEvent(room2, film);
 
         roomList.add(room1);
         roomList.add(room2);
