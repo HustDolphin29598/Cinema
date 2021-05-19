@@ -24,4 +24,10 @@ public class Staff {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="cinema_id")
     private Cinema cinema;
+
+    public Staff(String fullName, String staffCode, int age){
+        this.fullName = fullName;
+        this.staffCode = staffCode;
+        this.age = age;
+    }
 }

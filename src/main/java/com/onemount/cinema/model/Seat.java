@@ -18,7 +18,14 @@ public class Seat {
     private String row;
 
     @Column(name = "column_num")
-    private String column;
+    private int column;
 
-//    private Room room;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "room_id")
+    private Room room;
+
+    public Seat(String row, int column) {
+        this.row = row;
+        this.column = column;
+    }
 }

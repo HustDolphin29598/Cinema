@@ -6,7 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -25,9 +27,14 @@ public class Event {
     @JoinColumn(name="film_id")
     private Film film;
 
-//    private Seat seat;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Seat seat;
 
     private int price;
 
     private EventStatus status;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "event_id")
+    private List<OrderLine> orderLineList = new ArrayList<>();
 }

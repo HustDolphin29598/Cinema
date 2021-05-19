@@ -18,5 +18,15 @@ public class Room {
 
     private String name;
 
-//    private Cinema cinema;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "cinema_id")
+    private Cinema cinema;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "room_id")
+    private List<Seat> seats;
+
+    public Room(String name) {
+        this.name = name;
+    }
 }

@@ -27,4 +27,12 @@ public class Cinema {
     @JoinColumn(name = "cinema_id")
     private List<Staff> staffs = new ArrayList<>();
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "cinema_id")
+    private List<Room> rooms = new ArrayList<>();
+
+    public Cinema(String name, String address){
+        this.name = name;
+        this.address = address;
+    }
 }

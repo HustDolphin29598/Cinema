@@ -17,15 +17,19 @@ public class OrderLine {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private Date createdAt;
+    @Embedded
+    private Time time;
 
-    private Date updatedAt;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "event_id")
+    private Event event;
 
-//    private Event event;
-//
-//    private Order order;
-//
-//    private Customer customer;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "order_id")
+    private Order order;
 
     private OrderLineStatus status;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    private Ticket ticket;
 }

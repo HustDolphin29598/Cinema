@@ -26,7 +26,7 @@ public class Actor {
 
     private String country;
 
-    @ManyToMany(mappedBy = "actors", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "actors", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonBackReference
     private List<Film> films = new ArrayList<>();
 

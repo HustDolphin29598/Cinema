@@ -50,6 +50,10 @@ public class Film {
     @JsonManagedReference
     private List<Genre> genres = new ArrayList<>();
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "film_id")
+    private List<Event> events = new ArrayList<>();
+
     public void addActor(Actor actor){
         actors.add(actor);
         actor.getFilms().add(this);
