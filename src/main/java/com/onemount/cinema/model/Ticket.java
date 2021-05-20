@@ -15,9 +15,13 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToOne(mappedBy = "ticket", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "ticket", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private OrderLine orderLine;
 
     private String code;
+
+    public Ticket(String code) {
+        this.code = code;
+    }
 }

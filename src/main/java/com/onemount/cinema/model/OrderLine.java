@@ -17,8 +17,9 @@ public class OrderLine {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Embedded
-    private Time time;
+    private Date createdAt;
+
+    private Date updatedAt;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "event_id")
@@ -30,6 +31,8 @@ public class OrderLine {
 
     private OrderLineStatus status;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Ticket ticket;
+
+
 }

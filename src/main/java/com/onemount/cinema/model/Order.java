@@ -1,5 +1,7 @@
 package com.onemount.cinema.model;
 
+import com.onemount.cinema.enums.OrderStatus;
+import com.onemount.cinema.enums.PaymentMethod;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,7 +24,20 @@ public class Order {
 
     private float discount;
 
+    private PaymentMethod paymentMethod;
+
+    private OrderStatus orderStatus;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id")
     private List<OrderLine> orderLineList = new ArrayList<>();
+
+    public Order(PaymentMethod paymentMethod, OrderStatus orderStatus) {
+        this.paymentMethod = paymentMethod;
+        this.orderStatus = orderStatus;
+    }
 }

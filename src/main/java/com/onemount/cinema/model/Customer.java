@@ -38,8 +38,19 @@ public class Customer {
 
     private CustomerType type;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id")
     private List<Order> orders = new ArrayList<>();
 
+    public Customer(String userName, String fullName, String hashedPassword, String address, String phone, Date createdAt, Date updatedAt, int point, CustomerType type) {
+        this.userName = userName;
+        this.fullName = fullName;
+        this.hashedPassword = hashedPassword;
+        this.address = address;
+        this.phone = phone;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.point = point;
+        this.type = type;
+    }
 }

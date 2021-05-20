@@ -23,7 +23,7 @@ public class Event {
 
     private Date endTime;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="film_id")
     private Film film;
 
@@ -37,4 +37,13 @@ public class Event {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "event_id")
     private List<OrderLine> orderLineList = new ArrayList<>();
+
+    public Event(Date startTime, Date endTime, int price, EventStatus status, Film film, Seat seat) {
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.price = price;
+        this.status = status;
+        this.film = film;
+        this.seat = seat;
+    }
 }

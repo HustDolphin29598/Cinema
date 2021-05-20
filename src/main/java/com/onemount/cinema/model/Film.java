@@ -54,6 +54,18 @@ public class Film {
     @JoinColumn(name = "film_id")
     private List<Event> events = new ArrayList<>();
 
+    public Film(String title, String description, String thumbnail, int runningTime, Date releaseDate, FilmStatus status, List<Actor> actors, List<Genre> genres, List<Event> events) {
+        this.title = title;
+        this.description = description;
+        this.thumbnail = thumbnail;
+        this.runningTime = runningTime;
+        this.releaseDate = releaseDate;
+        this.status = status;
+        this.actors = actors;
+        this.genres = genres;
+        this.events = events;
+    }
+
     public void addActor(Actor actor){
         actors.add(actor);
         actor.getFilms().add(this);
