@@ -1,6 +1,7 @@
 package com.onemount.cinema.model;
 
-import com.onemount.cinema.enums.EventStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,23 +28,14 @@ public class Event {
     @JoinColumn(name="film_id")
     private Film film;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Seat seat;
 
-    private int price;
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<EventSeat> seats = new ArrayList<>();
 
-    private EventStatus status;
-
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "event_id")
-    private List<OrderLine> orderLineList = new ArrayList<>();
-
-    public Event(Date startTime, Date endTime, int price, EventStatus status, Film film, Seat seat) {
+    public Event(Date startTime, Date endTime, Film film) {
         this.startTime = startTime;
         this.endTime = endTime;
-        this.price = price;
-        this.status = status;
         this.film = film;
-        this.seat = seat;
     }
 }

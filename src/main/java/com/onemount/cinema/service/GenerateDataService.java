@@ -3,10 +3,7 @@ package com.onemount.cinema.service;
 import com.github.javafaker.Faker;
 import com.onemount.cinema.enums.*;
 import com.onemount.cinema.model.*;
-import com.onemount.cinema.repository.CinemaRepository;
-import com.onemount.cinema.repository.CustomerRepository;
-import com.onemount.cinema.repository.EventRepository;
-import com.onemount.cinema.repository.FilmRepository;
+import com.onemount.cinema.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +32,9 @@ public class GenerateDataService {
     @Autowired
     CustomerRepository customerRepository;
 
+    @Autowired
+    EventSeatRepository eventSeatRepository;
+
     private final Faker faker = new Faker();
     private final Random rand = new Random();
 
@@ -47,7 +47,8 @@ public class GenerateDataService {
     private List<Actor> actors;
     private List<Event> events;
     private List<Customer> customers;
-    private List<Order> orders;
+    private List<EventSeat> eventSeats;
+//    private List<Order> orders;
 
     private void init(){
         films = new ArrayList<>();
@@ -59,6 +60,7 @@ public class GenerateDataService {
         actors = new ArrayList<>();
         events = new ArrayList<>();
         customers = new ArrayList<>();
+        eventSeats = new ArrayList<>();
     }
 
     @Transactional
@@ -75,15 +77,19 @@ public class GenerateDataService {
             OrderLine orderLine = new OrderLine();
             Ticket ticket = new Ticket(faker.code().gtin8());
             orderLine.setOrder(order1);
-            orderLine.setEvent(events.get(rand.nextInt((int) events.stream()
+            EventSeat eventSeat = eventSeats.get(rand.nextInt((int) eventSeats.stream()
                     .filter(event -> event.getSeat().getRoom().getCinema().getName().equals("CGV Ba Trieu"))
-                    .count())));
+                    .count()));
+            eventSeat.setStatus(EventSeatStatus.RESERVED);
+            orderLine.setEventSeat(eventSeat);
             orderLine.setStatus(OrderLineStatus.SUCCESS);
+            orderLine.setCreatedAt(new Date());
+            orderLine.setUpdatedAt(new Date());
             orderLine.setTicket(ticket);
             orderLineList1.add(orderLine);
         }
         order1.setOrderLineList(orderLineList1);
-        order1.setTotalAmount(orderLineList1.stream().mapToInt(orderLine -> orderLine.getEvent().getPrice()).sum());
+        order1.setTotalAmount(orderLineList1.stream().mapToInt(orderLine -> orderLine.getEventSeat().getPrice()).sum());
         order1.setDiscount((float) (order1.getTotalAmount()*0.3));
         orderList1.add(order1);
         customer1.setOrders(orderList1);
@@ -96,9 +102,11 @@ public class GenerateDataService {
         for(int i=0;i<4;i++){
             OrderLine orderLine = new OrderLine();
             orderLine.setOrder(order2);
-            orderLine.setEvent(events.get(rand.nextInt((int) events.stream()
+            orderLine.setEventSeat(eventSeats.get(rand.nextInt((int) eventSeats.stream()
                     .filter(event -> event.getSeat().getRoom().getCinema().getName().equals("CGV Kim Ma"))
                     .count())));
+            orderLine.setCreatedAt(new Date());
+            orderLine.setUpdatedAt(new Date());
             orderLine.setStatus(OrderLineStatus.FAILURE);
             orderLineList2.add(orderLine);
         }
@@ -113,13 +121,13 @@ public class GenerateDataService {
 
     @Transactional
     public void generateGenre(){
-        Genre adventure = new Genre("Adventure","");
-        Genre comedy = new Genre("Comedy","");
+        Genre adventure = new Genre("Adventure","Implies a narrative that is defined by a journey (often including some form of pursuit) and is usually located within a fantasy or exoticized setting");
+        Genre comedy = new Genre("Comedy","Defined by events that are primarily intended to make the audience laugh");
         Genre cartoon = new Genre("Cartoon","");
-        Genre fiction = new Genre("Fiction","");
-        Genre fantastic = new Genre("Fantastic","");
+        Genre fiction = new Genre("Fiction","Adventure fiction is a genre of fiction that usually presents danger, or gives the reader a sense of excitement.");
+        Genre fantastic = new Genre("Fantastic","Films defined by situations that transcend natural laws and/or by settings inside a fictional universe, with narratives that are often inspired by or involve human myths. The genre typically incorporates non-scientific concepts such as magic, mythical creatures, and supernatural elements.");
         Genre horror = new Genre("Horror", "");
-        Genre action = new Genre("Action", "");
+        Genre action = new Genre("Action", "Associated with particular types of spectacle");
         genres.add(adventure);
         genres.add(comedy);
         genres.add(cartoon);
@@ -202,11 +210,12 @@ public class GenerateDataService {
         for(Room room: rooms){
             String[] rowList = {"A", "B", "C", "D"};
             List<Seat> roomSeat = new ArrayList<>();
-
             for (String row: rowList) {
                 for (int i=0;i<5;i++){
                     Seat seat = new Seat(row,i);
+                    SeatType seatType = SeatType.values()[rand.nextInt(2)];
                     seat.setRoom(room);
+                    seat.setType(seatType);
                     seats.add(seat);
                     roomSeat.add(seat);
                 }
@@ -228,23 +237,26 @@ public class GenerateDataService {
                               formatter.parse("20/05/2021 14:00:00"), formatter.parse("20/05/2021 16:30:00"),
                               formatter.parse("20/05/2021 19:00:00"), formatter.parse("20/05/2021 21:30:00")};
 
-        for(Cinema cinema: cinemas){
-            for(Room room: cinema.getRooms()){
-                for(Seat seat: room.getSeats()){
-                    for (Film film: films){
-                        List<Event> filmEvent = new ArrayList<>();
-                        for(int i=0; i<startTimeList.length;i++){
-                            Event event = new Event(startTimeList[i], endTimeList[i],
-                                    faker.number().numberBetween(50000, 200000), EventStatus.AVAILABLE,
-                                    film, seat);
-                            filmEvent.add(event);
-                            events.add(event);
-                        }
-                        film.setEvents(filmEvent);
-                    }
+        for (Film film: films){
+            List<Event> filmEvent = new ArrayList<>();
+            for(int i=0; i<startTimeList.length;i++){
+                Event event = new Event(startTimeList[i], endTimeList[i], film);
+                filmEvent.add(event);
+                events.add(event);
+            }
+            film.setEvents(filmEvent);
+        }
+    }
+
+    @Transactional
+    public void generateEventSeat(){
+        for(Event event: events){
+            for(Room room: rooms){
+                for (Seat seat: room.getSeats()){
+                    EventSeat eventSeat = new EventSeat(event, seat, calPrice(event, seat), EventSeatStatus.AVAILABLE);
+                    eventSeats.add(eventSeat);
                 }
             }
-
         }
     }
 
@@ -292,6 +304,7 @@ public class GenerateDataService {
         generateRoomAndStaff();
         generateSeat();
         generateEvent();
+        generateEventSeat();
         generateCustomer();
 
         for(Film film: films){
@@ -306,6 +319,16 @@ public class GenerateDataService {
         for(Customer customer: customers){
             customerRepository.save(customer);
         }
+
+        for(EventSeat eventSeat: eventSeats){
+            eventSeatRepository.save(eventSeat);
+        }
     }
 
+    private int calPrice(Event event, Seat seat){
+        int initPrice = faker.number().numberBetween(50,100)*1000;
+        if(seat.getType() == SeatType.VIP)
+            return (int) (initPrice*1.5);
+        return initPrice;
+    }
 }

@@ -21,14 +21,15 @@ public class OrderLine {
 
     private Date updatedAt;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "event_id")
-    private Event event;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "event_seat_id")
+    private EventSeat eventSeat;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "order_id")
     private Order order;
 
+    @Enumerated(EnumType.STRING)
     private OrderLineStatus status;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

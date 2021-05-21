@@ -36,6 +36,7 @@ public class Customer {
 
     private int point;
 
+    @Enumerated(EnumType.STRING)
     private CustomerType type;
 
     @OneToMany(cascade = CascadeType.ALL)

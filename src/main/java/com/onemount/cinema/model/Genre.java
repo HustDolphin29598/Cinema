@@ -21,6 +21,7 @@ public class Genre {
 
     private String name;
 
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     @ManyToMany(mappedBy = "genres", fetch = FetchType.LAZY)

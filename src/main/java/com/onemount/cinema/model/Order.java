@@ -24,8 +24,10 @@ public class Order {
 
     private float discount;
 
+    @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
 
+    @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
     @ManyToOne(fetch = FetchType.EAGER)

@@ -1,9 +1,14 @@
 package com.onemount.cinema.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.onemount.cinema.enums.SeatType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -28,4 +33,11 @@ public class Seat {
         this.row = row;
         this.column = column;
     }
+
+    @Enumerated(EnumType.STRING)
+    private SeatType type;
+
+    @OneToMany(mappedBy = "seat", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonBackReference
+    private List<EventSeat> events = new ArrayList<>();
 }

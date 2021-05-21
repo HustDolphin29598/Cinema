@@ -1,6 +1,6 @@
 package com.onemount.cinema.enums;
 
-public enum EventStatus {
+public enum EventSeatStatus {
     AVAILABLE,
     RESERVED,
     IN_PROCESS
