@@ -71,7 +71,7 @@ public class GenerateDataService {
 
         int randNum = rand.nextInt(2);
         List<Order> orderList1 = new ArrayList<>();
-        Order order1 = new Order(PaymentMethod.values()[randNum], OrderStatus.PAID);
+        Order order1 = new Order(PaymentMethod.values()[randNum], OrderStatus.SUCCESS);
         List<OrderLine> orderLineList1 = new ArrayList<>();
         for(int i=0;i<3;i++){
             OrderLine orderLine = new OrderLine();
@@ -82,10 +82,9 @@ public class GenerateDataService {
                     .count()));
             eventSeat.setStatus(EventSeatStatus.RESERVED);
             orderLine.setEventSeat(eventSeat);
-            orderLine.setStatus(OrderLineStatus.SUCCESS);
-            orderLine.setCreatedAt(new Date());
-            orderLine.setUpdatedAt(new Date());
+            orderLine.setTime(new Time(new Date(), new Date()));
             orderLine.setTicket(ticket);
+            orderLine.setCustomer(customer1);
             orderLineList1.add(orderLine);
         }
         order1.setOrderLineList(orderLineList1);
@@ -97,7 +96,7 @@ public class GenerateDataService {
         Customer customer2 = new Customer("zzzXZZZZXzzz", "Nguyen Van Z", faker.code().imei(), "Ha Noi", "0129827287312",
                 new Date(), new Date(), 10, CustomerType.NORMAL);
         List<Order> orderList2 = new ArrayList<>();
-        Order order2 = new Order(null, OrderStatus.NOT_PAID);
+        Order order2 = new Order(null, OrderStatus.FAILURE);
         List<OrderLine> orderLineList2 = new ArrayList<>();
         for(int i=0;i<4;i++){
             OrderLine orderLine = new OrderLine();
@@ -105,9 +104,8 @@ public class GenerateDataService {
             orderLine.setEventSeat(eventSeats.get(rand.nextInt((int) eventSeats.stream()
                     .filter(event -> event.getSeat().getRoom().getCinema().getName().equals("CGV Kim Ma"))
                     .count())));
-            orderLine.setCreatedAt(new Date());
-            orderLine.setUpdatedAt(new Date());
-            orderLine.setStatus(OrderLineStatus.FAILURE);
+            orderLine.setTime(new Time(new Date(), new Date()));
+            orderLine.setCustomer(customer2);
             orderLineList2.add(orderLine);
         }
         order2.setOrderLineList(orderLineList2);

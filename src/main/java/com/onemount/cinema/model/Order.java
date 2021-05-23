@@ -3,6 +3,7 @@ package com.onemount.cinema.model;
 import com.onemount.cinema.enums.OrderStatus;
 import com.onemount.cinema.enums.PaymentMethod;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,8 +14,10 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-@Entity(name = "`order`")
-@Table(name = "`order`")
+@AllArgsConstructor
+@Builder
+@Entity(name = "orders")
+@Table(name = "orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,4 +45,7 @@ public class Order {
         this.paymentMethod = paymentMethod;
         this.orderStatus = orderStatus;
     }
+
+    @Embedded
+    private Time time;
 }
