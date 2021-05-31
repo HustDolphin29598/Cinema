@@ -27,6 +27,7 @@ public class Seat {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "room_id")
+    @JsonBackReference
     private Room room;
 
     public Seat(String row, int column) {
@@ -38,6 +39,6 @@ public class Seat {
     private SeatType type;
 
     @OneToMany(mappedBy = "seat", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonBackReference
+    @JsonManagedReference
     private List<EventSeat> events = new ArrayList<>();
 }

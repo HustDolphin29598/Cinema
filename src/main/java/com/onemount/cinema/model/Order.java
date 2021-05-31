@@ -1,5 +1,7 @@
 package com.onemount.cinema.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.onemount.cinema.enums.OrderStatus;
 import com.onemount.cinema.enums.PaymentMethod;
 import lombok.AllArgsConstructor;
@@ -35,10 +37,12 @@ public class Order {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_id")
+    @JsonBackReference
     private Customer customer;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "order_id")
+    @JsonManagedReference
     private List<OrderLine> orderLineList = new ArrayList<>();
 
     public Order(PaymentMethod paymentMethod, OrderStatus orderStatus) {

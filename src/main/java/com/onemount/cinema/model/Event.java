@@ -1,5 +1,6 @@
 package com.onemount.cinema.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
@@ -26,6 +27,7 @@ public class Event {
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="film_id")
+    @JsonBackReference
     private Film film;
 
 

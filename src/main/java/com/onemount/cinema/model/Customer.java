@@ -1,5 +1,6 @@
 package com.onemount.cinema.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.onemount.cinema.enums.CustomerType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -41,6 +42,7 @@ public class Customer {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id")
+    @JsonManagedReference
     private List<Order> orders = new ArrayList<>();
 
     public Customer(String userName, String fullName, String hashedPassword, String address, String phone, Date createdAt, Date updatedAt, int point, CustomerType type) {

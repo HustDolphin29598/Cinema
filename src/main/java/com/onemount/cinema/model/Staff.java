@@ -1,5 +1,6 @@
 package com.onemount.cinema.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,6 +24,7 @@ public class Staff {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="cinema_id")
+    @JsonBackReference
     private Cinema cinema;
 
     public Staff(String fullName, String staffCode, int age){

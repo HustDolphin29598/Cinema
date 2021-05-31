@@ -1,6 +1,7 @@
 package com.onemount.cinema.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.onemount.cinema.enums.FilmStatus;
 import lombok.AllArgsConstructor;
@@ -52,6 +53,8 @@ public class Film {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "film_id")
+    @JsonIgnore
+//    @JsonManagedReference
     private List<Event> events = new ArrayList<>();
 
     public Film(String title, String description, String thumbnail, int runningTime, Date releaseDate, FilmStatus status, List<Actor> actors, List<Genre> genres, List<Event> events) {
