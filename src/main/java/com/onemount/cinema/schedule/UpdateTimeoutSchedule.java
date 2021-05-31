@@ -1,7 +1,10 @@
 package com.onemount.cinema.schedule;
 
+import com.onemount.cinema.enums.EventSeatStatus;
 import com.onemount.cinema.enums.OrderStatus;
+import com.onemount.cinema.model.EventSeat;
 import com.onemount.cinema.model.Order;
+import com.onemount.cinema.model.OrderLine;
 import com.onemount.cinema.model.Time;
 import com.onemount.cinema.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +33,10 @@ public class UpdateTimeoutSchedule {
             long duration = new Date().getTime() - order.getTime().getUpdatedAt().getTime();
             if(duration >= timeoutDuration){
                 order.setOrderStatus(OrderStatus.TIMEOUT);
+                for(OrderLine orderLine: order.getOrderLineList()){
+                    EventSeat eventSeat = orderLine.getEventSeat();
+                    eventSeat.setStatus(EventSeatStatus.AVAILABLE);
+                }
                 order.getTime().setUpdatedAt(new Date());
                 orderService.save(order);
             }
