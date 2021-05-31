@@ -38,7 +38,7 @@ public class Film {
     private FilmStatus status;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "cast",
+    @JoinTable(name = "casting",
             joinColumns = @JoinColumn(name = "film_id"),
             inverseJoinColumns = @JoinColumn(name = "actor_id"))
     @JsonManagedReference
