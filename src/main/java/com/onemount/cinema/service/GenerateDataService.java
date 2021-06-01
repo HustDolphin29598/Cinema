@@ -78,7 +78,7 @@ public class GenerateDataService {
             Ticket ticket = new Ticket(faker.code().gtin8());
             orderLine.setOrder(order1);
             EventSeat eventSeat = eventSeats.get(rand.nextInt((int) eventSeats.stream()
-                    .filter(event -> event.getSeat().getRoom().getCinema().getName().equals("CGV Ba Trieu"))
+                    .filter(event -> event.getSeat().getRoom().getCinema().getName().equals("VinCinema Ba Trieu"))
                     .count()));
             eventSeat.setStatus(EventSeatStatus.RESERVED);
             orderLine.setEventSeat(eventSeat);
@@ -102,7 +102,7 @@ public class GenerateDataService {
             OrderLine orderLine = new OrderLine();
             orderLine.setOrder(order2);
             orderLine.setEventSeat(eventSeats.get(rand.nextInt((int) eventSeats.stream()
-                    .filter(event -> event.getSeat().getRoom().getCinema().getName().equals("CGV Kim Ma"))
+                    .filter(event -> event.getSeat().getRoom().getCinema().getName().equals("VinCinema Nguyen Du"))
                     .count())));
             orderLine.setTime(new Time(new Date(), new Date()));
             orderLine.setCustomer(customer2);
@@ -285,8 +285,8 @@ public class GenerateDataService {
 
     @Transactional
     public void generateCinema(){
-        Cinema cinema1 = new Cinema("CGV Ba Trieu", "40 Ba Trieu, Ha Noi");
-        Cinema cinema2 = new Cinema("CGV Kim Ma", "120 Kim Ma, Ha Noi");
+        Cinema cinema1 = new Cinema("VinCinema Ba Trieu", "40 Ba Trieu, Ha Noi", "Ha Noi");
+        Cinema cinema2 = new Cinema("VinCinema Nguyen Du", "116 Nguyễn Du, Quận 1, TP.HCM", "TP.Ho Chi Minh");
         cinemas.add(cinema1);
         cinemas.add(cinema2);
     }

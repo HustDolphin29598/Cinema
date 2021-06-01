@@ -1,6 +1,7 @@
 package com.onemount.cinema.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,7 +28,8 @@ public class Room {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "room_id")
-    @JsonManagedReference
+//    @JsonManagedReference
+    @JsonIgnore
     private List<Seat> seats;
 
     public Room(String name) {

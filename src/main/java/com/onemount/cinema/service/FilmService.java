@@ -26,6 +26,9 @@ public class FilmService {
     @Autowired
     private FilmRepository filmRepository;
 
+    public Film getById(int id){
+        return filmRepository.findById(id);
+    }
 
     public List<Film> getALl(){
         return filmRepository.findAll();

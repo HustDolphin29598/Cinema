@@ -24,7 +24,7 @@ public class UpdateTimeoutSchedule {
     @Autowired
     OrderService orderService;
 
-    private static final long timeoutDuration = 1000 * 20;
+    private static final long timeoutDuration = 1000 * 60 * 10;
 
     @Scheduled(fixedRate = 5000)
     public void scheduleFixedRate() throws InterruptedException {

@@ -10,4 +10,8 @@ import java.util.List;
 
 @Repository
 public interface CinemaRepository extends JpaRepository<Cinema, Integer> {
+
+    Cinema findById(int id);
+
+    List<Cinema> findByCity(String city);
 }

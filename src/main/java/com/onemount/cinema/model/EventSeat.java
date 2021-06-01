@@ -1,6 +1,7 @@
 package com.onemount.cinema.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.onemount.cinema.enums.EventSeatStatus;
 import lombok.Data;
@@ -32,7 +33,8 @@ public class EventSeat {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "event_seat_id")
-    @JsonManagedReference
+//    @JsonManagedReference
+    @JsonIgnore
     private List<OrderLine> orderLineList = new ArrayList<>();
 
     private int price;

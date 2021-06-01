@@ -1,6 +1,7 @@
 package com.onemount.cinema.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.onemount.cinema.enums.SeatType;
 import lombok.Data;
@@ -28,6 +29,7 @@ public class Seat {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "room_id")
     @JsonBackReference
+    @JsonIgnore
     private Room room;
 
     public Seat(String row, int column) {
@@ -39,6 +41,7 @@ public class Seat {
     private SeatType type;
 
     @OneToMany(mappedBy = "seat", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonManagedReference
+//    @JsonManagedReference
+    @JsonIgnore
     private List<EventSeat> events = new ArrayList<>();
 }
