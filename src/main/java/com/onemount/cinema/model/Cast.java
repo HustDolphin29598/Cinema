@@ -5,8 +5,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity(name = "cast")
-@Table(name = "cast")
+@Entity(name = "casting")
+@Table(name = "casting")
 @Data
 @NoArgsConstructor
 public class Cast {
