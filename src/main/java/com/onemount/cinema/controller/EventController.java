@@ -18,12 +18,12 @@ public class EventController {
     EventService eventService;
 
     @GetMapping(value = "", params = "filmId")
-    public List<Event> getAllByFilmId(@RequestParam int filmId){
+    public List<Event> getEventByFilmId(@RequestParam int filmId){
         return eventService.getAllByFilmId(filmId);
     }
 
     @GetMapping(value = "", params = "id")
-    public Event getByEventId(@RequestParam int id){
+    public Event getEventById(@RequestParam int id){
         return eventService.getById(id);
     }
 }

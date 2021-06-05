@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class OrderLineRequest {
     private int customerId;
-    private int eventSeatId;
+    private int bookingId;
 }

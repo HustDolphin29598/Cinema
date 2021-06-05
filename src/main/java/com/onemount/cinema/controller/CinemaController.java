@@ -18,17 +18,17 @@ public class CinemaController {
     CinemaService cinemaService;
 
     @GetMapping("")
-    public List<Cinema> getAll(){
+    public List<Cinema> getAllCinema(){
         return cinemaService.getAll();
     }
 
     @GetMapping(value = "", params = "city")
-    public List<Cinema> getAllByCity(@RequestParam String city){
+    public List<Cinema> getCinemaByCity(@RequestParam String city){
         return cinemaService.getAllByCity(city);
     }
 
     @GetMapping(value = "", params = "id")
-    public Cinema getByFilmId(@RequestParam int id){
+    public Cinema getCinemaById(@RequestParam int id){
         return cinemaService.getById(id);
     }
 }

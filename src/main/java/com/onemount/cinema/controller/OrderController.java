@@ -15,7 +15,7 @@ public class OrderController {
     OrderService orderService;
 
     @PostMapping("")
-    public ResponseEntity<BasicResponse> order(@RequestBody OrderRequest request){
+    public ResponseEntity<BasicResponse> createOrder(@RequestBody OrderRequest request){
         orderService.order(request);
         return ResponseEntity.ok(new BasicResponse("Order created successful !"));
     }

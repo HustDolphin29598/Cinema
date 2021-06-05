@@ -1,18 +1,16 @@
 package com.onemount.cinema.service;
 
 import com.onemount.cinema.enums.CustomerType;
-import com.onemount.cinema.enums.EventSeatStatus;
+import com.onemount.cinema.enums.BookingStatus;
 import com.onemount.cinema.enums.OrderStatus;
 import com.onemount.cinema.exception.LogicException;
 import com.onemount.cinema.exception.NotFoundException;
 import com.onemount.cinema.model.*;
-import com.onemount.cinema.repository.EventRepository;
-import com.onemount.cinema.repository.EventSeatRepository;
+import com.onemount.cinema.repository.BookingRepository;
 import com.onemount.cinema.repository.OrderLineRepository;
 import com.onemount.cinema.repository.OrderRepository;
 import com.onemount.cinema.request.OrderRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -27,7 +25,7 @@ public class OrderService {
     OrderRepository orderRepository;
 
     @Autowired
-    EventSeatRepository eventSeatRepository;
+    BookingRepository bookingRepository;
 
     @Autowired
     OrderLineRepository orderLineRepository;
@@ -43,14 +41,14 @@ public class OrderService {
             if(orderLine == null){
                 throw new NotFoundException(orderLineId + " not found", "OrderLine");
             }
-            EventSeat eventSeat = orderLine.getEventSeat();
-            if(eventSeat.getStatus() == EventSeatStatus.IN_PROCESS || eventSeat.getStatus() == EventSeatStatus.RESERVED){
-                throw new LogicException("EventSeat is already reserved or in processing !");
+            Booking booking = orderLine.getBooking();
+            if(booking.getStatus() == BookingStatus.IN_PROCESS || booking.getStatus() == BookingStatus.RESERVED){
+                throw new LogicException("Booking is already reserved or in processing !");
             }
-            eventSeat.setStatus(EventSeatStatus.IN_PROCESS);
-            eventSeatRepository.save(eventSeat);
+            booking.setStatus(BookingStatus.IN_PROCESS);
+            bookingRepository.save(booking);
 
-            totalAmount += orderLine.getEventSeat().getPrice();
+            totalAmount += orderLine.getBooking().getPrice();
             orderLineList.add(orderLine);
         }
 

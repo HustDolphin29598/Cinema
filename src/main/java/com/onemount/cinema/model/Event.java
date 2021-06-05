@@ -30,14 +30,15 @@ public class Event {
     @JsonBackReference
     private Film film;
 
-    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
-//    @JsonManagedReference
-    @JsonIgnore
-    private List<EventSeat> seats = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name="room_id")
+//    @JsonBackReference
+    private Room room;
 
-    public Event(Date startTime, Date endTime, Film film) {
+    public Event(Date startTime, Date endTime, Film film, Room room) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.film = film;
+        this.room = room;
     }
 }

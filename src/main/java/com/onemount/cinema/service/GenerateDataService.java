@@ -7,7 +7,6 @@ import com.onemount.cinema.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.GeneratedValue;
 import javax.transaction.Transactional;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -15,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 @Service
 public class GenerateDataService {
@@ -33,12 +31,17 @@ public class GenerateDataService {
     CustomerRepository customerRepository;
 
     @Autowired
-    EventSeatRepository eventSeatRepository;
+    BookingRepository bookingRepository;
+
+    @Autowired
+    CastRepository castRepository;
+
+    @Autowired
+    FilmGenreRepository filmGenreRepository;
 
     private final Faker faker = new Faker();
     private final Random rand = new Random();
 
-    private List<Film> films ;
     private List<Cinema> cinemas ;
     private List<Genre> genres;
     private List<Staff> staffs;
@@ -47,11 +50,13 @@ public class GenerateDataService {
     private List<Actor> actors;
     private List<Event> events;
     private List<Customer> customers;
-    private List<EventSeat> eventSeats;
+    private List<Booking> bookings;
+    private List<Cast> casts;
+    private List<FilmGenre> filmGenres;
+    private List<Film> films;
 //    private List<Order> orders;
 
     private void init(){
-        films = new ArrayList<>();
         cinemas = new ArrayList<>();
         genres = new ArrayList<>();
         staffs = new ArrayList<>();
@@ -60,7 +65,10 @@ public class GenerateDataService {
         actors = new ArrayList<>();
         events = new ArrayList<>();
         customers = new ArrayList<>();
-        eventSeats = new ArrayList<>();
+        bookings = new ArrayList<>();
+        casts = new ArrayList<>();
+        filmGenres = new ArrayList<>();
+        films = new ArrayList<>();
     }
 
     @Transactional
@@ -77,18 +85,18 @@ public class GenerateDataService {
             OrderLine orderLine = new OrderLine();
             Ticket ticket = new Ticket(faker.code().gtin8());
             orderLine.setOrder(order1);
-            EventSeat eventSeat = eventSeats.get(rand.nextInt((int) eventSeats.stream()
+            Booking booking = bookings.get(rand.nextInt((int) bookings.stream()
                     .filter(event -> event.getSeat().getRoom().getCinema().getName().equals("VinCinema Ba Trieu"))
                     .count()));
-            eventSeat.setStatus(EventSeatStatus.RESERVED);
-            orderLine.setEventSeat(eventSeat);
+            booking.setStatus(BookingStatus.RESERVED);
+            orderLine.setBooking(booking);
             orderLine.setTime(new Time(new Date(), new Date()));
             orderLine.setTicket(ticket);
             orderLine.setCustomer(customer1);
             orderLineList1.add(orderLine);
         }
         order1.setOrderLineList(orderLineList1);
-        order1.setTotalAmount(orderLineList1.stream().mapToInt(orderLine -> orderLine.getEventSeat().getPrice()).sum());
+        order1.setTotalAmount(orderLineList1.stream().mapToInt(orderLine -> orderLine.getBooking().getPrice()).sum());
         order1.setDiscount((float) (order1.getTotalAmount()*0.3));
         orderList1.add(order1);
         customer1.setOrders(orderList1);
@@ -101,7 +109,7 @@ public class GenerateDataService {
         for(int i=0;i<4;i++){
             OrderLine orderLine = new OrderLine();
             orderLine.setOrder(order2);
-            orderLine.setEventSeat(eventSeats.get(rand.nextInt((int) eventSeats.stream()
+            orderLine.setBooking(bookings.get(rand.nextInt((int) bookings.stream()
                     .filter(event -> event.getSeat().getRoom().getCinema().getName().equals("VinCinema Nguyen Du"))
                     .count())));
             orderLine.setTime(new Time(new Date(), new Date()));
@@ -166,47 +174,60 @@ public class GenerateDataService {
     public void generateFilm() throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
-        List<Actor> actorListFilm1 = new ArrayList<>(actors.subList(0,4));
-        List<Genre> genreListFilm1 = new ArrayList<>();
-        genreListFilm1.add(genres.get(0));
-        genreListFilm1.add(genres.get(3));
-        genreListFilm1.add(genres.get(4));
         Film film1 = new Film("Harry Potter and the deathly hallows",
                 "Without the guidance and protection of their professors, Harry (Daniel Radcliffe), Ron (Rupert Grint) and Hermione (Emma Watson) begin a mission to destroy the Horcruxes, the sources of Voldemort's immortality.",
                 null,120,formatter.parse("10/05/2021"),
-                FilmStatus.ON_THEATER, actorListFilm1, genreListFilm1,null);
+                FilmStatus.ON_THEATER, null);
 
-        List<Actor> actorListFilm2 = new ArrayList<>(actors.subList(4,8));
-        List<Genre> genreListFilm2 = new ArrayList<>();
-        genreListFilm2.add(genres.get(1));
-        genreListFilm2.add(genres.get(2));
+        casts.add(new Cast(actors.get(0), film1));
+        casts.add(new Cast(actors.get(1), film1));
+        casts.add(new Cast(actors.get(2), film1));
+        casts.add(new Cast(actors.get(3), film1));
+
+        filmGenres.add(new FilmGenre(genres.get(0), film1));
+        filmGenres.add(new FilmGenre(genres.get(1), film1));
+        filmGenres.add(new FilmGenre(genres.get(2), film1));
+
+
+
         Film film2 = new Film("DORAEMON: STAND BY ME 2",
                 "Nobita - following his previous adventure - has managed to change his future for the better, making Shizuka marry him. Taken by despair, however, he decides to return to the past to re-meet his beloved grandmother, she died when he was still in kindergarten and to whom he was really fond of; grandmother is happy that Nobita came back in time to be with her, and confides in him a great desire: to meet his future bride",
                 null,150,formatter.parse("15/07/2021"),
-                FilmStatus.INCOMING, actorListFilm2, genreListFilm2,null);
+                FilmStatus.INCOMING, null);
 
 
-        List<Actor> actorListFilm3 = new ArrayList<>(actors.subList(8,11));
-        List<Genre> genreListFilm3 = new ArrayList<>();
-        genreListFilm3.add(genres.get(0));
-        genreListFilm3.add(genres.get(6));
+        casts.add(new Cast(actors.get(4), film2));
+        casts.add(new Cast(actors.get(5), film2));
+        casts.add(new Cast(actors.get(6), film2));
+        casts.add(new Cast(actors.get(7), film2));
+
+        filmGenres.add(new FilmGenre(genres.get(1), film2));
+        filmGenres.add(new FilmGenre(genres.get(2), film2));
+
         Film film3 = new Film("THE LAST WARRIOR: ROOT OF EVIL",
                 "Peace and tranquility have set in Belogorie. The evil was defeated and Ivan is now enjoying his well-deserved fame. He is surrounded by his family, friends and small wonders from the modern world that help him lead a comfortable life. Luckily, he has his Magic Sword...",
                 null,125,formatter.parse("30/04/2021"),
-                FilmStatus.ON_THEATER, actorListFilm3, genreListFilm3,null);
+                FilmStatus.ON_THEATER, null);
+
+        casts.add(new Cast(actors.get(8), film3));
+        casts.add(new Cast(actors.get(9), film3));
+        casts.add(new Cast(actors.get(10), film3));
+
+        filmGenres.add(new FilmGenre(genres.get(0), film3));
+        filmGenres.add(new FilmGenre(genres.get(6), film3));
 
 
         films.add(film1);
         films.add(film2);
         films.add(film3);
-
     }
 
     @Transactional
     public void generateSeat(){
 
         for(Room room: rooms){
-            String[] rowList = {"A", "B", "C", "D"};
+//            String[] rowList = {"A", "B", "C", "D", "E", "F", "G", "H"};
+            String[] rowList = {"A", "B", "C"};
             List<Seat> roomSeat = new ArrayList<>();
             for (String row: rowList) {
                 for (int i=0;i<5;i++){
@@ -236,24 +257,24 @@ public class GenerateDataService {
                               formatter.parse("20/05/2021 19:00:00"), formatter.parse("20/05/2021 21:30:00")};
 
         for (Film film: films){
-            List<Event> filmEvent = new ArrayList<>();
-            for(int i=0; i<startTimeList.length;i++){
-                Event event = new Event(startTimeList[i], endTimeList[i], film);
-                filmEvent.add(event);
-                events.add(event);
+            for(Room room: rooms){
+                List<Event> filmEvent = new ArrayList<>();
+                for(int i=0; i<startTimeList.length;i++){
+                    Event event = new Event(startTimeList[i], endTimeList[i], film, room);
+                    filmEvent.add(event);
+                    events.add(event);
+                }
+                film.setEvents(filmEvent);
             }
-            film.setEvents(filmEvent);
         }
     }
 
     @Transactional
-    public void generateEventSeat(){
+    public void generateBooking(){
         for(Event event: events){
-            for(Room room: rooms){
-                for (Seat seat: room.getSeats()){
-                    EventSeat eventSeat = new EventSeat(event, seat, calPrice(event, seat), EventSeatStatus.AVAILABLE);
-                    eventSeats.add(eventSeat);
-                }
+            for (Seat seat: event.getRoom().getSeats()){
+                Booking booking = new Booking(event, seat, calPrice(event, seat), BookingStatus.AVAILABLE);
+                bookings.add(booking);
             }
         }
     }
@@ -302,12 +323,21 @@ public class GenerateDataService {
         generateRoomAndStaff();
         generateSeat();
         generateEvent();
-        generateEventSeat();
+        generateBooking();
         generateCustomer();
 
         for(Film film: films){
             filmRepository.save(film);
         }
+
+        for(Cast cast: casts){
+            castRepository.save(cast);
+        }
+
+        for(FilmGenre filmGenre: filmGenres){
+            filmGenreRepository.save(filmGenre);
+        }
+
         for(Cinema cinema: cinemas){
             cinemaRepository.save(cinema);
         }
@@ -318,8 +348,8 @@ public class GenerateDataService {
             customerRepository.save(customer);
         }
 
-        for(EventSeat eventSeat: eventSeats){
-            eventSeatRepository.save(eventSeat);
+        for(Booking booking : bookings){
+            bookingRepository.save(booking);
         }
     }
 

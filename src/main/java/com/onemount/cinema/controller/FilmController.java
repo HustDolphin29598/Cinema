@@ -3,15 +3,12 @@ package com.onemount.cinema.controller;
 import com.onemount.cinema.model.Film;
 import com.onemount.cinema.service.FilmService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/films")
+@RequestMapping("/film")
 public class FilmController {
 
     @Autowired
@@ -26,4 +23,9 @@ public class FilmController {
     public Film getFilmById(@RequestParam int id){
         return filmService.getById(id);
     }
+
+//    @PostMapping(value = "create")
+//    public Film createNewFilm(){
+//
+//    }
 }

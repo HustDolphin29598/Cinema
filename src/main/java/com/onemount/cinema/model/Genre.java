@@ -1,6 +1,7 @@
 package com.onemount.cinema.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,9 +25,9 @@ public class Genre {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @ManyToMany(mappedBy = "genres", fetch = FetchType.LAZY)
-    @JsonBackReference
-    private List<Film> films = new ArrayList<>();
+    @OneToMany(mappedBy = "genre", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<FilmGenre> filmGenres = new ArrayList<>();
 
     public Genre(String name, String description){
         this.name = name;

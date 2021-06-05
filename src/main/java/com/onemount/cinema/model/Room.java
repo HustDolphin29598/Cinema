@@ -23,7 +23,7 @@ public class Room {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cinema_id")
-    @JsonBackReference
+//    @JsonBackReference
     private Cinema cinema;
 
     @OneToMany(cascade = CascadeType.ALL)

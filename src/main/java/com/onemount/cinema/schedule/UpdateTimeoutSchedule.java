@@ -1,11 +1,10 @@
 package com.onemount.cinema.schedule;
 
-import com.onemount.cinema.enums.EventSeatStatus;
+import com.onemount.cinema.enums.BookingStatus;
 import com.onemount.cinema.enums.OrderStatus;
-import com.onemount.cinema.model.EventSeat;
+import com.onemount.cinema.model.Booking;
 import com.onemount.cinema.model.Order;
 import com.onemount.cinema.model.OrderLine;
-import com.onemount.cinema.model.Time;
 import com.onemount.cinema.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
@@ -18,7 +17,7 @@ import java.util.List;
 
 @Component
 @EnableScheduling
-@ConditionalOnExpression("true")
+@ConditionalOnExpression()
 public class UpdateTimeoutSchedule {
 
     @Autowired
@@ -34,8 +33,8 @@ public class UpdateTimeoutSchedule {
             if(duration >= timeoutDuration){
                 order.setOrderStatus(OrderStatus.TIMEOUT);
                 for(OrderLine orderLine: order.getOrderLineList()){
-                    EventSeat eventSeat = orderLine.getEventSeat();
-                    eventSeat.setStatus(EventSeatStatus.AVAILABLE);
+                    Booking booking = orderLine.getBooking();
+                    booking.setStatus(BookingStatus.AVAILABLE);
                 }
                 order.getTime().setUpdatedAt(new Date());
                 orderService.save(order);

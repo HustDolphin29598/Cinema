@@ -26,9 +26,9 @@ public class Actor {
 
     private String country;
 
-    @ManyToMany(mappedBy = "actors", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JsonBackReference
-    private List<Film> films = new ArrayList<>();
+    @OneToMany(mappedBy = "actor", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Cast> cast = new ArrayList<>();
 
     public Actor(String name, int age, String country){
         this.name = name;

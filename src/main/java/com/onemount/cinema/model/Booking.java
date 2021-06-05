@@ -3,7 +3,7 @@ package com.onemount.cinema.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.onemount.cinema.enums.EventSeatStatus;
+import com.onemount.cinema.enums.BookingStatus;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,11 +11,11 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(name = "event_seat")
-@Table(name = "event_seat")
+@Entity(name = "booking")
+@Table(name = "booking")
 @Data
 @NoArgsConstructor
-public class EventSeat {
+public class Booking {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,26 +23,27 @@ public class EventSeat {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "event_id")
-    @JsonBackReference
+//    @JsonBackReference
+    @JsonIgnore
     private Event event;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "seat_id")
-    @JsonBackReference
+//    @JsonBackReference
     private Seat seat;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "event_seat_id")
-//    @JsonManagedReference
+    @JoinColumn(name = "booking_id")
     @JsonIgnore
+//    @JsonManagedReference
     private List<OrderLine> orderLineList = new ArrayList<>();
 
     private int price;
 
     @Enumerated(EnumType.STRING)
-    private EventSeatStatus status;
+    private BookingStatus status;
 
-    public EventSeat(Event event, Seat seat, int price, EventSeatStatus status) {
+    public Booking(Event event, Seat seat, int price, BookingStatus status) {
         this.event = event;
         this.seat = seat;
         this.price = price;

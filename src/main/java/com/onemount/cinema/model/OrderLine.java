@@ -1,14 +1,12 @@
 package com.onemount.cinema.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.onemount.cinema.enums.OrderLineStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Data
 @Builder
@@ -22,9 +20,9 @@ public class OrderLine {
     private int id;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "event_seat_id")
+    @JoinColumn(name = "booking_id")
     @JsonBackReference
-    private EventSeat eventSeat;
+    private Booking booking;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "order_id")

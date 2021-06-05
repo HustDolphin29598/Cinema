@@ -1,7 +1,7 @@
 package com.onemount.cinema.service;
 
 import com.github.javafaker.Faker;
-import com.onemount.cinema.enums.EventSeatStatus;
+import com.onemount.cinema.enums.BookingStatus;
 import com.onemount.cinema.enums.OrderStatus;
 import com.onemount.cinema.exception.LogicException;
 import com.onemount.cinema.exception.NotFoundException;
@@ -45,7 +45,7 @@ public class PayService {
 
         if(request.getAmount() < order.getTotalAmount() - order.getDiscount()){
             for(OrderLine orderLine: order.getOrderLineList()){
-                orderLine.getEventSeat().setStatus(EventSeatStatus.AVAILABLE);
+                orderLine.getBooking().setStatus(BookingStatus.AVAILABLE);
             }
             order.setOrderStatus(OrderStatus.FAILURE);
             order.setTime(new Time(order.getTime().getCreatedAt(), new Date()));
@@ -54,7 +54,7 @@ public class PayService {
         }
 
         for(OrderLine orderLine: order.getOrderLineList()){
-            orderLine.getEventSeat().setStatus(EventSeatStatus.RESERVED);
+            orderLine.getBooking().setStatus(BookingStatus.RESERVED);
             Ticket ticket = Ticket.builder()
                     .orderLine(orderLine)
                     .time(new Time(new Date(), new Date()))

@@ -18,12 +18,12 @@ public class SeatController {
     SeatService seatService;
 
     @GetMapping(value = "", params = "id")
-    public Seat getById(@RequestParam int id){
+    public Seat getSeatById(@RequestParam int id){
         return seatService.getById(id);
     }
 
     @GetMapping(value = "", params = "roomId")
-    public List<Seat> getByRoomId(@RequestParam int roomId){
+    public List<Seat> getSeatByRoomId(@RequestParam int roomId){
         return seatService.getAllByRoomId(roomId);
     }
 }
