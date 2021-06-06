@@ -27,7 +27,7 @@ public class Event {
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="film_id")
-    @JsonBackReference
+//    @JsonBackReference
     private Film film;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

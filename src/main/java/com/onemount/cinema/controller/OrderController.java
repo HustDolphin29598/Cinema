@@ -1,5 +1,6 @@
 package com.onemount.cinema.controller;
 
+import com.onemount.cinema.model.Order;
 import com.onemount.cinema.request.OrderRequest;
 import com.onemount.cinema.response.BasicResponse;
 import com.onemount.cinema.service.OrderService;
@@ -18,5 +19,10 @@ public class OrderController {
     public ResponseEntity<BasicResponse> createOrder(@RequestBody OrderRequest request){
         orderService.order(request);
         return ResponseEntity.ok(new BasicResponse("Order created successful !"));
+    }
+
+    @GetMapping(value = "", params = "id")
+    public Order getOrderById(int id){
+        return orderService.findById(id);
     }
 }

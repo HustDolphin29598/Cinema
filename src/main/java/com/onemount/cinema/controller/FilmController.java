@@ -24,8 +24,4 @@ public class FilmController {
         return filmService.getById(id);
     }
 
-//    @PostMapping(value = "create")
-//    public Film createNewFilm(){
-//
-//    }
 }

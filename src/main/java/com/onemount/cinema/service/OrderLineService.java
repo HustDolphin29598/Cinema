@@ -63,4 +63,8 @@ public class OrderLineService {
         return orderLine;
 
     }
+
+    public OrderLine findById(int id){
+        return orderLineRepository.findById(id);
+    }
 }

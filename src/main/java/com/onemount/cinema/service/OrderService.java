@@ -10,6 +10,7 @@ import com.onemount.cinema.repository.BookingRepository;
 import com.onemount.cinema.repository.OrderLineRepository;
 import com.onemount.cinema.repository.OrderRepository;
 import com.onemount.cinema.request.OrderRequest;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +30,10 @@ public class OrderService {
 
     @Autowired
     OrderLineRepository orderLineRepository;
+
+    public Order findById(int id){
+        return orderRepository.findById(id);
+    }
 
     @Transactional
     public Order order(OrderRequest request){

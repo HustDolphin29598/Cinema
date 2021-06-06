@@ -24,7 +24,7 @@ public class Booking {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "event_id")
 //    @JsonBackReference
-    @JsonIgnore
+//    @JsonIgnore
     private Event event;
 
     @ManyToOne(cascade = CascadeType.ALL)

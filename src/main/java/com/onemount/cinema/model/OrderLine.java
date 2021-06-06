@@ -1,6 +1,8 @@
 package com.onemount.cinema.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,7 +23,7 @@ public class OrderLine {
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "booking_id")
-    @JsonBackReference
+//    @JsonBackReference
     private Booking booking;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -29,7 +31,8 @@ public class OrderLine {
     @JsonBackReference
     private Order order;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
     private Ticket ticket;
 
     @ManyToOne(fetch = FetchType.LAZY)
