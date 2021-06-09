@@ -42,11 +42,11 @@ public class Customer {
     @Enumerated(EnumType.STRING)
     private CustomerType type;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "customer_id")
-    @JsonManagedReference
+//    @OneToMany(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "customer_id")
+//    @JsonManagedReference
 //    @JsonIgnore
-    private List<Order> orders = new ArrayList<>();
+//    private List<Order> orders = new ArrayList<>();
 
 //    @JsonGetter(value = "orders")
 //    @Transient

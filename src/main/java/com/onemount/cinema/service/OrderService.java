@@ -72,7 +72,6 @@ public class OrderService {
         }
 
         Order order = Order.builder()
-                .orderLineList(orderLineList)
                 .orderStatus(OrderStatus.CREATED)
                 .customer(customer)
                 .totalAmount(totalAmount)
@@ -80,7 +79,18 @@ public class OrderService {
                 .time(new Time(new Date(), new Date()))
                 .build();
 
+
         orderRepository.save(order);
+
+        for(int orderLineId: orderLineIdList){
+            OrderLine orderLine = orderLineRepository.findById(orderLineId);
+            if(orderLine == null){
+                throw new NotFoundException(orderLineId + " not found", "OrderLine");
+            }
+            orderLine.setOrder(order);
+            orderLineRepository.save(orderLine);
+        }
+
         return order;
     }
 
@@ -90,5 +100,9 @@ public class OrderService {
 
     public Order save(Order order){
         return orderRepository.save(order);
+    }
+
+    public List<Order> findByCustomerId(int customerId){
+        return orderRepository.findByCustomerId(customerId);
     }
 }

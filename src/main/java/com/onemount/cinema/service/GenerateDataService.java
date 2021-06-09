@@ -39,6 +39,12 @@ public class GenerateDataService {
     @Autowired
     FilmGenreRepository filmGenreRepository;
 
+    @Autowired
+    OrderRepository orderRepository;
+
+    @Autowired
+    OrderLineRepository orderLineRepository;
+
     private final Faker faker = new Faker();
     private final Random rand = new Random();
 
@@ -54,6 +60,8 @@ public class GenerateDataService {
     private List<Cast> casts;
     private List<FilmGenre> filmGenres;
     private List<Film> films;
+    private List<Order> orders;
+    private List<OrderLine> orderLines;
 //    private List<Order> orders;
 
     private void init(){
@@ -69,6 +77,8 @@ public class GenerateDataService {
         casts = new ArrayList<>();
         filmGenres = new ArrayList<>();
         films = new ArrayList<>();
+        orders = new ArrayList<>();
+        orderLines = new ArrayList<>();
     }
 
     @Transactional
@@ -93,14 +103,15 @@ public class GenerateDataService {
             orderLine.setTime(new Time(new Date(), new Date()));
             orderLine.setTicket(ticket);
             orderLine.setCustomer(customer1);
+            orderLine.setOrder(order1);
             orderLineList1.add(orderLine);
+            orderLines.add(orderLine);
         }
-        order1.setOrderLineList(orderLineList1);
         order1.setTotalAmount(orderLineList1.stream().mapToInt(orderLine -> orderLine.getBooking().getPrice()).sum());
         order1.setDiscount((float) (order1.getTotalAmount()*0.3));
+        order1.setCustomer(customer1);
         orderList1.add(order1);
-        customer1.setOrders(orderList1);
-
+        orders.add(order1);
         Customer customer2 = new Customer("zzzXZZZZXzzz", "Nguyen Van Z", faker.code().imei(), "Ha Noi", "0129827287312",
                 new Date(), new Date(), 10, CustomerType.NORMAL);
         List<Order> orderList2 = new ArrayList<>();
@@ -114,12 +125,13 @@ public class GenerateDataService {
                     .count())));
             orderLine.setTime(new Time(new Date(), new Date()));
             orderLine.setCustomer(customer2);
+            orderLine.setOrder(order2);
             orderLineList2.add(orderLine);
+            orderLines.add(orderLine);
         }
-        order2.setOrderLineList(orderLineList2);
+        order2.setCustomer(customer2);
         orderList2.add(order2);
-        customer2.setOrders(orderList2);
-
+        orders.add(order2);
         customers.add(customer1);
         customers.add(customer2);
     }
@@ -230,7 +242,7 @@ public class GenerateDataService {
             String[] rowList = {"A", "B", "C"};
             List<Seat> roomSeat = new ArrayList<>();
             for (String row: rowList) {
-                for (int i=0;i<5;i++){
+                for (int i=0;i<10;i++){
                     Seat seat = new Seat(row,i);
                     SeatType seatType = SeatType.values()[rand.nextInt(2)];
                     seat.setRoom(room);
@@ -292,7 +304,7 @@ public class GenerateDataService {
                 staff.setCinema(cinema);
                 staffs.add(staff);
             }
-            for(int i=0;i<10;i++){
+            for(int i=0;i<4;i++){
                 Room room = new Room(faker.leagueOfLegends().champion());
                 room.setCinema(cinema);
                 rooms.add(room);
@@ -350,6 +362,14 @@ public class GenerateDataService {
 
         for(Booking booking : bookings){
             bookingRepository.save(booking);
+        }
+
+        for(Order order: orders){
+            orderRepository.save(order);
+        }
+
+        for(OrderLine orderLine: orderLines){
+            orderLineRepository.save(orderLine);
         }
     }
 

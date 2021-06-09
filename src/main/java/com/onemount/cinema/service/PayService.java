@@ -9,6 +9,7 @@ import com.onemount.cinema.model.Order;
 import com.onemount.cinema.model.OrderLine;
 import com.onemount.cinema.model.Ticket;
 import com.onemount.cinema.model.Time;
+import com.onemount.cinema.repository.OrderLineRepository;
 import com.onemount.cinema.repository.OrderRepository;
 import com.onemount.cinema.request.PayRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class PayService {
 
     @Autowired
     OrderRepository orderRepository;
+
+    @Autowired
+    OrderLineRepository orderLineRepository;
 
     private final Faker faker = new Faker();
 
@@ -44,7 +48,7 @@ public class PayService {
 
 
         if(request.getAmount() < order.getTotalAmount() - order.getDiscount()){
-            for(OrderLine orderLine: order.getOrderLineList()){
+            for(OrderLine orderLine: orderLineRepository.findByOrderId(orderId)){
                 orderLine.getBooking().setStatus(BookingStatus.AVAILABLE);
             }
             order.setOrderStatus(OrderStatus.FAILURE);
@@ -53,7 +57,7 @@ public class PayService {
             throw new LogicException("Not enough money");
         }
 
-        for(OrderLine orderLine: order.getOrderLineList()){
+        for(OrderLine orderLine: orderLineRepository.findByOrderId(orderId)){
             orderLine.getBooking().setStatus(BookingStatus.RESERVED);
             Ticket ticket = Ticket.builder()
                     .orderLine(orderLine)

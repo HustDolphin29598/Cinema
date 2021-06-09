@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class OrderLineService {
@@ -66,5 +67,9 @@ public class OrderLineService {
 
     public OrderLine findById(int id){
         return orderLineRepository.findById(id);
+    }
+
+    public List<OrderLine> findByOrderId(int orderId){
+        return orderLineRepository.findByOrderId(orderId);
     }
 }

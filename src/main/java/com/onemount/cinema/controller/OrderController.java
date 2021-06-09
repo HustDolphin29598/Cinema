@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/order")
 public class OrderController {
@@ -24,5 +26,10 @@ public class OrderController {
     @GetMapping(value = "", params = "id")
     public Order getOrderById(int id){
         return orderService.findById(id);
+    }
+
+    @GetMapping(value = "", params = "customerId")
+    public List<Order> getOrderByCustomerId(int customerId){
+        return orderService.findByCustomerId(customerId);
     }
 }

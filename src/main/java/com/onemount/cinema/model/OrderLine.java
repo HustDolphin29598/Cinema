@@ -26,7 +26,7 @@ public class OrderLine {
 //    @JsonBackReference
     private Booking booking;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id")
     @JsonBackReference
     private Order order;

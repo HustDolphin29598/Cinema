@@ -35,15 +35,15 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id")
     @JsonBackReference
     private Customer customer;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "order_id")
-    @JsonManagedReference
-    private List<OrderLine> orderLineList = new ArrayList<>();
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    @JoinColumn(name = "order_id")
+//    @JsonManagedReference
+//    private List<OrderLine> orderLineList = new ArrayList<>();
 
     public Order(PaymentMethod paymentMethod, OrderStatus orderStatus) {
         this.paymentMethod = paymentMethod;
