@@ -26,13 +26,13 @@ public class Film {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    private String thumbnail;
-
     @Column(name = "running_time")
     private int runningTime;
 
     @Column(name = "release_date")
     private Date releaseDate;
+
+    private String imageUrl;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
@@ -70,13 +70,13 @@ public class Film {
         return result;
     }
 
-    public Film(String title, String description, String thumbnail, int runningTime, Date releaseDate, FilmStatus status, List<Event> events) {
+    public Film(String title, String description, String thumbnail, int runningTime, Date releaseDate, FilmStatus status, List<Event> events, String image) {
         this.title = title;
         this.description = description;
-        this.thumbnail = thumbnail;
         this.runningTime = runningTime;
         this.releaseDate = releaseDate;
         this.status = status;
         this.events = events;
+        this.imageUrl = image;
     }
 }

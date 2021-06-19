@@ -169,6 +169,15 @@ public class GenerateDataService {
         Actor actor9 = new Actor("Viktor Khorinyak", "Russia");
         Actor actor10 = new Actor("Mila Sivatskaya", "Russia");
         Actor actor11 = new Actor("Ekaterina Vilkova", "Russia");
+        Actor actor12 = new Actor("Millie Bobby Brown", "US");
+        Actor actor13 = new Actor("Alexander Skarsgård", "US");
+        Actor actor14 = new Actor("Rebecca Hall", "US");
+        Actor actor15 = new Actor("Eiza González", "US");
+        Actor actor16 = new Actor("Lewis Tan", "US");
+        Actor actor17 = new Actor("Jessica McNamee", "US");
+        Actor actor18 = new Actor("Josh Lawson", "US");
+        Actor actor19 = new Actor("Joe Taslim", "US");
+        Actor actor20 = new Actor("Tadanobu Asano", "US");
         actors.add(actor1);
         actors.add(actor2);
         actors.add(actor3);
@@ -180,6 +189,15 @@ public class GenerateDataService {
         actors.add(actor9);
         actors.add(actor10);
         actors.add(actor11);
+        actors.add(actor12);
+        actors.add(actor13);
+        actors.add(actor14);
+        actors.add(actor15);
+        actors.add(actor16);
+        actors.add(actor17);
+        actors.add(actor18);
+        actors.add(actor19);
+        actors.add(actor20);
     }
 
     @Transactional
@@ -189,7 +207,7 @@ public class GenerateDataService {
         Film film1 = new Film("Harry Potter and the deathly hallows",
                 "Without the guidance and protection of their professors, Harry (Daniel Radcliffe), Ron (Rupert Grint) and Hermione (Emma Watson) begin a mission to destroy the Horcruxes, the sources of Voldemort's immortality.",
                 null,120,formatter.parse("10/05/2021"),
-                FilmStatus.ON_THEATER, null);
+                FilmStatus.ON_THEATER, null, "src/main/resources/images/hp.jpg");
 
         casts.add(new Cast(actors.get(0), film1));
         casts.add(new Cast(actors.get(1), film1));
@@ -205,7 +223,7 @@ public class GenerateDataService {
         Film film2 = new Film("DORAEMON: STAND BY ME 2",
                 "Nobita - following his previous adventure - has managed to change his future for the better, making Shizuka marry him. Taken by despair, however, he decides to return to the past to re-meet his beloved grandmother, she died when he was still in kindergarten and to whom he was really fond of; grandmother is happy that Nobita came back in time to be with her, and confides in him a great desire: to meet his future bride",
                 null,150,formatter.parse("15/07/2021"),
-                FilmStatus.INCOMING, null);
+                FilmStatus.INCOMING, null, "src/main/resources/images/doremon.jpg");
 
 
         casts.add(new Cast(actors.get(4), film2));
@@ -219,7 +237,7 @@ public class GenerateDataService {
         Film film3 = new Film("THE LAST WARRIOR: ROOT OF EVIL",
                 "Peace and tranquility have set in Belogorie. The evil was defeated and Ivan is now enjoying his well-deserved fame. He is surrounded by his family, friends and small wonders from the modern world that help him lead a comfortable life. Luckily, he has his Magic Sword...",
                 null,125,formatter.parse("30/04/2021"),
-                FilmStatus.ON_THEATER, null);
+                FilmStatus.ON_THEATER, null, "src/main/resources/images/tlw.jpg");
 
         casts.add(new Cast(actors.get(8), film3));
         casts.add(new Cast(actors.get(9), film3));
@@ -228,10 +246,39 @@ public class GenerateDataService {
         filmGenres.add(new FilmGenre(genres.get(0), film3));
         filmGenres.add(new FilmGenre(genres.get(6), film3));
 
+        Film film4 = new Film("MORTAL KOMBAT: CUỘC CHIẾN SINH TỬ",
+                "Mortal Kombat: Cuộc Chiến Sinh Tử xoay quanh võ sĩ võ thuật tổng hợp Cole Young (Lewis Tan), người mang trên mình một vết chàm rồng đen bí ẩn - biểu tượng của Mortal Kombat. Cole Young không hề biết về dòng máu bí ẩn đang chảy trong người anh, hay vì sao anh lại bị tên sát thủ Sub-Zero (Joe Taslim) săn lùng. Vì sự an nguy của gia đình, Cole cùng với một nhóm những chiến binh đã được tuyển chọn để tham gia vào một trận chiến đẫm máu nhằm chống lại những kẻ thù đến từ Outworld.",
+                null,150,formatter.parse("30/04/2021"),
+                FilmStatus.ON_THEATER, null, "src/main/resources/images/mc.jpg");
+
+        casts.add(new Cast(actors.get(11), film4));
+        casts.add(new Cast(actors.get(12), film4));
+        casts.add(new Cast(actors.get(13), film4));
+        casts.add(new Cast(actors.get(14), film4));
+
+        filmGenres.add(new FilmGenre(genres.get(0), film4));
+        filmGenres.add(new FilmGenre(genres.get(6), film4));
+
+        Film film5 = new Film("GODZILLA VS. KONG",
+                "Khi hai kẻ thù truyền kiếp gặp nhau trong một trận chiến ngoạn mục, số phận của cả thế giới vẫn còn bị bỏ ngỏ… Bị đưa khỏi Đảo Đầu Lâu, Kong cùng Jia, một cô bé mồ côi có mối liên kết mạnh mẽ với mình và đội bảo vệ đặc biệt hướng về mái nhà mới. Bất ngờ, nhóm đụng độ phải Godzilla hùng mạnh, tạo ra một làn sóng hủy diệt trên toàn cầu. Thực chất, cuộc chiến giữa hai kẻ khổng lồ dưới sự thao túng của các thế lực vô hình mới chỉ là điểm khởi đầu để khám phá những bí ẩn nằm sâu trong tâm Trái đất.",
+                null,120,formatter.parse("30/04/2021"),
+                FilmStatus.ON_THEATER, null, "src/main/resources/images/gvk.jpg");
+
+        casts.add(new Cast(actors.get(15), film5));
+        casts.add(new Cast(actors.get(16), film5));
+        casts.add(new Cast(actors.get(17), film5));
+        casts.add(new Cast(actors.get(18), film5));
+        casts.add(new Cast(actors.get(19), film5));
+
+        filmGenres.add(new FilmGenre(genres.get(0), film5));
+        filmGenres.add(new FilmGenre(genres.get(6), film5));
+        filmGenres.add(new FilmGenre(genres.get(4), film5));
 
         films.add(film1);
         films.add(film2);
         films.add(film3);
+        films.add(film4);
+        films.add(film5);
     }
 
     @Transactional
