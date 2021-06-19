@@ -286,10 +286,10 @@ public class GenerateDataService {
 
         for(Room room: rooms){
 //            String[] rowList = {"A", "B", "C", "D", "E", "F", "G", "H"};
-            String[] rowList = {"A", "B", "C"};
+            String[] rowList = {"A", "B", "C", "D", "E"};
             List<Seat> roomSeat = new ArrayList<>();
             for (String row: rowList) {
-                for (int i=0;i<10;i++){
+                for (int i=0;i<30;i++){
                     Seat seat = new Seat(row,i);
                     SeatType seatType = SeatType.values()[rand.nextInt(2)];
                     seat.setRoom(room);
@@ -315,14 +315,15 @@ public class GenerateDataService {
                               formatter.parse("20/05/2021 14:00:00"), formatter.parse("20/05/2021 16:30:00"),
                               formatter.parse("20/05/2021 19:00:00"), formatter.parse("20/05/2021 21:30:00")};
 
-        for (Film film: films){
-            for(Room room: rooms){
+        for(Room room: rooms){
+            for(int i=0; i<startTimeList.length;i++){
                 List<Event> filmEvent = new ArrayList<>();
-                for(int i=0; i<startTimeList.length;i++){
-                    Event event = new Event(startTimeList[i], endTimeList[i], film, room);
-                    filmEvent.add(event);
-                    events.add(event);
-                }
+                Random random = new Random();
+                int n = random.nextInt(films.size()-1);
+                Film film = films.get(n);
+                Event event = new Event(startTimeList[i], endTimeList[i], film, room);
+                filmEvent.add(event);
+                events.add(event);
                 film.setEvents(filmEvent);
             }
         }
