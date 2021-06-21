@@ -237,7 +237,7 @@ public class GenerateDataService {
         Film film3 = new Film("THE LAST WARRIOR: ROOT OF EVIL",
                 "Peace and tranquility have set in Belogorie. The evil was defeated and Ivan is now enjoying his well-deserved fame. He is surrounded by his family, friends and small wonders from the modern world that help him lead a comfortable life. Luckily, he has his Magic Sword...",
                 null,125,formatter.parse("30/04/2021"),
-                FilmStatus.ON_THEATER, null, "src/main/resources/images/tlw.jpg");
+                FilmStatus.ON_THEATER, null, "src/main/resources/images/tlw.jpeg");
 
         casts.add(new Cast(actors.get(8), film3));
         casts.add(new Cast(actors.get(9), film3));
@@ -289,7 +289,7 @@ public class GenerateDataService {
             String[] rowList = {"A", "B", "C", "D", "E"};
             List<Seat> roomSeat = new ArrayList<>();
             for (String row: rowList) {
-                for (int i=0;i<30;i++){
+                for (int i=0;i<10;i++){
                     Seat seat = new Seat(row,i);
                     SeatType seatType = SeatType.values()[rand.nextInt(2)];
                     seat.setRoom(room);
@@ -319,7 +319,7 @@ public class GenerateDataService {
             for(int i=0; i<startTimeList.length;i++){
                 List<Event> filmEvent = new ArrayList<>();
                 Random random = new Random();
-                int n = random.nextInt(films.size()-1);
+                int n = random.nextInt(films.size());
                 Film film = films.get(n);
                 Event event = new Event(startTimeList[i], endTimeList[i], film, room);
                 filmEvent.add(event);

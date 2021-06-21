@@ -20,4 +20,13 @@ public class BookingService {
     public Booking getById(int id){
         return bookingRepository.findById(id);
     }
+
+    public Booking getByEventIdAndSeatId(int eventId, int seatId){
+        List<Booking> bookingList = bookingRepository.findByEvent_Id(eventId);
+        for(Booking booking: bookingList){
+            if(booking.getSeat().getId() == seatId)
+                return booking;
+        }
+        return null;
+    }
 }
