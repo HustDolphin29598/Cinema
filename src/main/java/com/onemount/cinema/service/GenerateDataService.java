@@ -246,8 +246,8 @@ public class GenerateDataService {
         filmGenres.add(new FilmGenre(genres.get(0), film3));
         filmGenres.add(new FilmGenre(genres.get(6), film3));
 
-        Film film4 = new Film("MORTAL KOMBAT: CUỘC CHIẾN SINH TỬ",
-                "Mortal Kombat: Cuộc Chiến Sinh Tử xoay quanh võ sĩ võ thuật tổng hợp Cole Young (Lewis Tan), người mang trên mình một vết chàm rồng đen bí ẩn - biểu tượng của Mortal Kombat. Cole Young không hề biết về dòng máu bí ẩn đang chảy trong người anh, hay vì sao anh lại bị tên sát thủ Sub-Zero (Joe Taslim) săn lùng. Vì sự an nguy của gia đình, Cole cùng với một nhóm những chiến binh đã được tuyển chọn để tham gia vào một trận chiến đẫm máu nhằm chống lại những kẻ thù đến từ Outworld.",
+        Film film4 = new Film("MORTAL KOMBAT",
+                "A washed-up mixed martial arts fighter named Cole Young is unaware of his hidden lineage or why he is being hunted down by Sub-Zero of the Lin-Kuei clan of assassins. Concerned for the safety of his family, he seeks out a clique of fighters that were chosen to defend Earthrealm in a high-stakes battle against the forces of Outworld.",
                 null,150,formatter.parse("30/04/2021"),
                 FilmStatus.ON_THEATER, null, "src/main/resources/images/mc.jpg");
 
@@ -260,7 +260,7 @@ public class GenerateDataService {
         filmGenres.add(new FilmGenre(genres.get(6), film4));
 
         Film film5 = new Film("GODZILLA VS. KONG",
-                "Khi hai kẻ thù truyền kiếp gặp nhau trong một trận chiến ngoạn mục, số phận của cả thế giới vẫn còn bị bỏ ngỏ… Bị đưa khỏi Đảo Đầu Lâu, Kong cùng Jia, một cô bé mồ côi có mối liên kết mạnh mẽ với mình và đội bảo vệ đặc biệt hướng về mái nhà mới. Bất ngờ, nhóm đụng độ phải Godzilla hùng mạnh, tạo ra một làn sóng hủy diệt trên toàn cầu. Thực chất, cuộc chiến giữa hai kẻ khổng lồ dưới sự thao túng của các thế lực vô hình mới chỉ là điểm khởi đầu để khám phá những bí ẩn nằm sâu trong tâm Trái đất.",
+                "Legends collide in “Godzilla vs. Kong” as these mythic adversaries meet in a spectacular battle for the ages, with the fate of the world hanging in the balance. Kong and his protectors undertake a perilous journey to find his true home, and with them is Jia, a young orphaned girl with whom he has formed a unique and powerful bond. But they unexpectedly find themselves in the path of an enraged Godzilla, cutting a swath of destruction across the globe. The epic clash between the two titans—instigated by unseen forces—is only the beginning of the mystery that lies deep within the core of the Earth.",
                 null,120,formatter.parse("30/04/2021"),
                 FilmStatus.ON_THEATER, null, "src/main/resources/images/gvk.jpg");
 
