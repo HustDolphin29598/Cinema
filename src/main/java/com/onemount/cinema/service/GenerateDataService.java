@@ -367,7 +367,7 @@ public class GenerateDataService {
     @Transactional
     public void generateCinema(){
         Cinema cinema1 = new Cinema("VinCinema Ba Trieu", "40 Ba Trieu, Ha Noi", "Ha Noi");
-        Cinema cinema2 = new Cinema("VinCinema Nguyen Du", "116 Nguyễn Du, Quận 1, TP.HCM", "TP.Ho Chi Minh");
+        Cinema cinema2 = new Cinema("VinCinema Nguyen Du", "116 Nguyen Du, District 1, TP.HCM", "TP.Ho Chi Minh");
         cinemas.add(cinema1);
         cinemas.add(cinema2);
     }

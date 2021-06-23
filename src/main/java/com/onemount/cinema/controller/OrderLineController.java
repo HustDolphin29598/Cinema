@@ -18,9 +18,9 @@ public class OrderLineController {
     OrderLineService orderLineService;
 
     @PostMapping("/create")
-    public ResponseEntity<BasicResponse> createOrderLine(@RequestBody OrderLineRequest request){
-        orderLineService.createOrderLine(request);
-        return ResponseEntity.ok(new BasicResponse("Orderline added to list !"));
+    public ResponseEntity<Integer> createOrderLine(@RequestBody OrderLineRequest request){
+        OrderLine orderLine = orderLineService.createOrderLine(request);
+        return ResponseEntity.ok(orderLine.getId());
     }
 
     @GetMapping(value = "", params = "id")
