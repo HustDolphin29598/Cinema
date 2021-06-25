@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -286,14 +289,19 @@ public class GenerateDataService {
 
         for(Room room: rooms){
 //            String[] rowList = {"A", "B", "C", "D", "E", "F", "G", "H"};
-            String[] rowList = {"A", "B", "C", "D", "E"};
+            String[] rowList = {"A", "B", "C", "D"};
             List<Seat> roomSeat = new ArrayList<>();
             for (String row: rowList) {
                 for (int i=0;i<10;i++){
                     Seat seat = new Seat(row,i);
-                    SeatType seatType = SeatType.values()[rand.nextInt(2)];
+                    if(row.equals("B") || row.equals("C")){
+                        SeatType seatType = SeatType.VIP;
+                        seat.setType(seatType);
+                    }else{
+                        SeatType seatType = SeatType.NORMAL;
+                        seat.setType(seatType);
+                    }
                     seat.setRoom(room);
-                    seat.setType(seatType);
                     seats.add(seat);
                     roomSeat.add(seat);
                 }
@@ -306,24 +314,32 @@ public class GenerateDataService {
     @Transactional
     public void generateEvent() throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate[] dateList = {LocalDate.of(2021, 6, 20),
+                                LocalDate.of(2021, 6, 21),
+                                LocalDate.of(2021, 6, 22)};
+        LocalTime[] startTimeList = {LocalTime.of(8,0,0), LocalTime.of(10, 0, 0),
+                                     LocalTime.of(12,0,0), LocalTime.of(14, 0, 0),
+                                     LocalTime.of(16,0,0), LocalTime.of(18, 0, 0),
+                                    };
 
-        Date[] startTimeList = {formatter.parse("20/05/2021 07:00:00"), formatter.parse("20/05/2021 09:30:00"),
-                                formatter.parse("20/05/2021 12:00:00"), formatter.parse("20/05/2021 14:30:00"),
-                                formatter.parse("20/05/2021 17:00:00"), formatter.parse("20/05/2021 19:30:00")};
-
-        Date[] endTimeList = {formatter.parse("20/05/2021 09:00:00"), formatter.parse("20/05/2021 11:30:00"),
-                              formatter.parse("20/05/2021 14:00:00"), formatter.parse("20/05/2021 16:30:00"),
-                              formatter.parse("20/05/2021 19:00:00"), formatter.parse("20/05/2021 21:30:00")};
+        LocalTime[] endTimeList = {LocalTime.of(10,0,0), LocalTime.of(12, 0, 0),
+                                   LocalTime.of(14,0,0), LocalTime.of(16, 0, 0),
+                                   LocalTime.of(18,0,0), LocalTime.of(20, 0, 0),
+                                   };
 
         for(Room room: rooms){
-            for(int i=0; i<startTimeList.length;i++){
+            for(LocalDate date: dateList){
                 List<Event> filmEvent = new ArrayList<>();
                 Random random = new Random();
                 int n = random.nextInt(films.size());
                 Film film = films.get(n);
-                Event event = new Event(startTimeList[i], endTimeList[i], film, room);
-                filmEvent.add(event);
-                events.add(event);
+                for(int i=0; i<startTimeList.length;i++){
+                    Event event = new Event(date, startTimeList[i], endTimeList[i], film, room);
+                    filmEvent.add(event);
+                    events.add(event);
+                    film.setEvents(filmEvent);
+                }
                 film.setEvents(filmEvent);
             }
         }
@@ -332,8 +348,11 @@ public class GenerateDataService {
     @Transactional
     public void generateBooking(){
         for(Event event: events){
+            int price = faker.number().numberBetween(50,100)*1000;
             for (Seat seat: event.getRoom().getSeats()){
-                Booking booking = new Booking(event, seat, calPrice(event, seat), BookingStatus.AVAILABLE);
+                if(seat.getType() == SeatType.VIP)
+                    price = (int) (price *1.4);
+                Booking booking = new Booking(event, seat, price, BookingStatus.AVAILABLE);
                 bookings.add(booking);
             }
         }
@@ -419,12 +438,5 @@ public class GenerateDataService {
         for(OrderLine orderLine: orderLines){
             orderLineRepository.save(orderLine);
         }
-    }
-
-    private int calPrice(Event event, Seat seat){
-        int initPrice = faker.number().numberBetween(50,100)*1000;
-        if(seat.getType() == SeatType.VIP)
-            return (int) (initPrice*1.5);
-        return initPrice;
     }
 }

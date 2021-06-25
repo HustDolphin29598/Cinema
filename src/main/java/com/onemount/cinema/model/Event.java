@@ -8,6 +8,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,9 +23,11 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private Date startTime;
+    private LocalTime startTime;
 
-    private Date endTime;
+    private LocalTime endTime;
+
+    private LocalDate showingDate;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="film_id")
@@ -35,10 +39,11 @@ public class Event {
 //    @JsonBackReference
     private Room room;
 
-    public Event(Date startTime, Date endTime, Film film, Room room) {
+    public Event(LocalDate showingDate, LocalTime startTime, LocalTime endTime, Film film, Room room) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.film = film;
         this.room = room;
+        this.showingDate = showingDate;
     }
 }
