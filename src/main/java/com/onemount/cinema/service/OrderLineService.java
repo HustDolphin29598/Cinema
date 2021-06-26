@@ -10,11 +10,13 @@ import com.onemount.cinema.model.Time;
 import com.onemount.cinema.repository.CustomerRepository;
 import com.onemount.cinema.repository.BookingRepository;
 import com.onemount.cinema.repository.OrderLineRepository;
+import com.onemount.cinema.request.OrderLineListRequest;
 import com.onemount.cinema.request.OrderLineRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -63,6 +65,21 @@ public class OrderLineService {
         orderLineRepository.save(orderLine);
         return orderLine;
 
+    }
+
+    @Transactional
+    public List<OrderLine> createOrderLineList(OrderLineListRequest request){
+        int customerId = request.getCustomerId();
+        List<Integer> bookingIds = request.getBookingId();
+        List<OrderLine> orderLineList = new ArrayList<>();
+        for(Integer bookingId: bookingIds){
+            OrderLineRequest orderLineRequest = new OrderLineRequest(customerId, bookingId);
+            OrderLine orderLine = createOrderLine(orderLineRequest);
+            if(orderLine != null){
+                orderLineList.add(orderLine);
+            }
+        }
+        return orderLineList;
     }
 
     public OrderLine findById(int id){

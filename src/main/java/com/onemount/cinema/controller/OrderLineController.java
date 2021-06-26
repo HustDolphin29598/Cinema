@@ -1,6 +1,8 @@
 package com.onemount.cinema.controller;
 
+import com.onemount.cinema.model.Order;
 import com.onemount.cinema.model.OrderLine;
+import com.onemount.cinema.request.OrderLineListRequest;
 import com.onemount.cinema.request.OrderLineRequest;
 import com.onemount.cinema.response.BasicResponse;
 import com.onemount.cinema.service.OrderLineService;
@@ -21,6 +23,12 @@ public class OrderLineController {
     public ResponseEntity<Integer> createOrderLine(@RequestBody OrderLineRequest request){
         OrderLine orderLine = orderLineService.createOrderLine(request);
         return ResponseEntity.ok(orderLine.getId());
+    }
+
+    @PostMapping("/createList")
+    public List<OrderLine> createOrderLineList(@RequestBody OrderLineListRequest request){
+        List<OrderLine> orderLineList = orderLineService.createOrderLineList(request);
+        return orderLineList;
     }
 
     @GetMapping(value = "", params = "id")
