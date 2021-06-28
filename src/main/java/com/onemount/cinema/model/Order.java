@@ -29,8 +29,7 @@ public class Order {
 
     private float discount;
 
-    @Enumerated(EnumType.STRING)
-    private PaymentMethod paymentMethod;
+    private String paymentMethod;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
@@ -45,7 +44,7 @@ public class Order {
 //    @JsonManagedReference
 //    private List<OrderLine> orderLineList = new ArrayList<>();
 
-    public Order(PaymentMethod paymentMethod, OrderStatus orderStatus) {
+    public Order(String paymentMethod, OrderStatus orderStatus) {
         this.paymentMethod = paymentMethod;
         this.orderStatus = orderStatus;
     }

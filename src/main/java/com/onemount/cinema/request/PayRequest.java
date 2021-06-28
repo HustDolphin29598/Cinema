@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 public class PayRequest {
     private int orderId;
-    private PaymentMethod paymentMethod;
+    private String paymentMethod;
     private long amount;
 }

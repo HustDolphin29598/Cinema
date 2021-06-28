@@ -92,7 +92,7 @@ public class GenerateDataService {
 
         int randNum = rand.nextInt(2);
         List<Order> orderList1 = new ArrayList<>();
-        Order order1 = new Order(PaymentMethod.values()[randNum], OrderStatus.SUCCESS);
+        Order order1 = new Order("E_WALLET", OrderStatus.SUCCESS);
         List<OrderLine> orderLineList1 = new ArrayList<>();
         for(int i=0;i<3;i++){
             OrderLine orderLine = new OrderLine();
