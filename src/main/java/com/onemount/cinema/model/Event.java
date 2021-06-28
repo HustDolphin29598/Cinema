@@ -1,6 +1,7 @@
 package com.onemount.cinema.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
@@ -45,5 +46,23 @@ public class Event {
         this.film = film;
         this.room = room;
         this.showingDate = showingDate;
+    }
+
+    @JsonGetter(value = "startTime")
+    @Transient
+    public String getStartTime() {
+        return startTime.toString();
+    }
+
+    @JsonGetter(value = "endTime")
+    @Transient
+    public String getEndTime() {
+        return endTime.toString();
+    }
+
+    @JsonGetter(value = "showingDate")
+    @Transient
+    public String getShowingDate() {
+        return showingDate.toString();
     }
 }
