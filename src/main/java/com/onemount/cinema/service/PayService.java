@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class PayService {
@@ -57,7 +58,8 @@ public class PayService {
             throw new LogicException("Not enough money");
         }
 
-        for(OrderLine orderLine: orderLineRepository.findByOrderId(orderId)){
+        List<OrderLine> paidOrderLines = orderLineRepository.findByOrderId(orderId);
+        for(OrderLine orderLine: paidOrderLines){
             orderLine.getBooking().setStatus(BookingStatus.RESERVED);
             Ticket ticket = Ticket.builder()
                     .orderLine(orderLine)
