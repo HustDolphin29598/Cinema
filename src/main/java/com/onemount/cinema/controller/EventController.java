@@ -3,10 +3,7 @@ package com.onemount.cinema.controller;
 import com.onemount.cinema.model.Event;
 import com.onemount.cinema.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,4 +23,20 @@ public class EventController {
     public Event getEventById(@RequestParam int id){
         return eventService.getById(id);
     }
+
+    @GetMapping("/date/{showingDate}")
+    public List<Event> getEventByShowingDate(@PathVariable String showingDate){
+        return eventService.getAllByShowingDate(showingDate);
+    }
+
+    @GetMapping("/city/{city}")
+    public List<Event> getEventByCity(@PathVariable String city){
+        return eventService.getAllByCity(city);
+    }
+
+    @GetMapping("/city/{city}/date/{showingDate}")
+    public List<Event> getEventByCity(@PathVariable String city, @PathVariable String showingDate){
+        return eventService.getAllByCityAndShowingDate(city, showingDate);
+    }
+
 }
