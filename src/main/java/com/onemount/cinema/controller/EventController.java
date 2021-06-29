@@ -24,19 +24,19 @@ public class EventController {
         return eventService.getById(id);
     }
 
-    @GetMapping("/date/{showingDate}")
-    public List<Event> getEventByShowingDate(@PathVariable String showingDate){
-        return eventService.getAllByShowingDate(showingDate);
+    @GetMapping("/date/{showingDate}/filmId/{filmId}")
+    public List<Event> getEventByShowingDate(@PathVariable String showingDate, @PathVariable int filmId){
+        return eventService.getAllByShowingDate(showingDate, filmId);
     }
 
-    @GetMapping("/city/{city}")
-    public List<Event> getEventByCity(@PathVariable String city){
-        return eventService.getAllByCity(city);
+    @GetMapping("/city/{city}/filmId/{filmId}")
+    public List<Event> getEventByCity(@PathVariable String city, @PathVariable int filmId){
+        return eventService.getAllByCity(city, filmId);
     }
 
-    @GetMapping("/city/{city}/date/{showingDate}")
-    public List<Event> getEventByCity(@PathVariable String city, @PathVariable String showingDate){
-        return eventService.getAllByCityAndShowingDate(city, showingDate);
+    @GetMapping("/city/{city}/date/{showingDate}/filmId/{filmId}")
+    public List<Event> getEventByCity(@PathVariable String city, @PathVariable String showingDate, @PathVariable int filmId){
+        return eventService.getAllByCityAndShowingDate(city, showingDate, filmId);
     }
 
 }

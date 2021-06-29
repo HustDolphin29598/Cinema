@@ -18,21 +18,21 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
 
     List<Event> getAllByStartTime(LocalTime startTime);
 
-    List<Event> getAllByShowingDate(LocalDate showingDate);
+    List<Event> getAllByShowingDateAndFilm_Id(LocalDate showingDate, int filmId);
 
     @Query("SELECT e from event e\n" +
             "LEFT JOIN room r \n" +
             "ON r.id = e.room.id\n" +
             "LEFT JOIN cinema c\n" +
             "ON r.cinema.id = c.id\n" +
-            "WHERE c.city = ?1")
-    List<Event> getAllByCity(String city);
+            "WHERE c.city = ?1 and e.film.id = ?2")
+    List<Event> getAllByCity(String city, int filmId);
 
     @Query("SELECT e from event e\n" +
             "LEFT JOIN room r \n" +
             "ON r.id = e.room.id\n" +
             "LEFT JOIN cinema c\n" +
             "ON r.cinema.id = c.id\n" +
-            "WHERE c.city = ?1 and e.showingDate  = ?2")
-    List<Event> getAllByCityAndShowingDate(String city, LocalDate showingDate);
+            "WHERE c.city = ?1 and e.showingDate  = ?2 and e.film.id = ?3")
+    List<Event> getAllByCityAndShowingDate(String city, LocalDate showingDate, int filmId);
 }

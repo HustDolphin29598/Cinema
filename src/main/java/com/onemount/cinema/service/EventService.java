@@ -28,17 +28,17 @@ public class EventService {
         return eventRepository.getAllByStartTime(startTime);
     }
 
-    public List<Event> getAllByShowingDate(String showingDateStr){
+    public List<Event> getAllByShowingDate(String showingDateStr, int filmId){
         LocalDate showingDate = LocalDate.parse(showingDateStr);
-        return eventRepository.getAllByShowingDate(showingDate);
+        return eventRepository.getAllByShowingDateAndFilm_Id(showingDate, filmId);
     }
 
-    public List<Event> getAllByCity(String city){
-        return eventRepository.getAllByCity(city);
+    public List<Event> getAllByCity(String city, int filmId){
+        return eventRepository.getAllByCity(city, filmId);
     }
 
-    public List<Event> getAllByCityAndShowingDate(String city, String showingDateStr){
+    public List<Event> getAllByCityAndShowingDate(String city, String showingDateStr, int filmId){
         LocalDate showingDate = LocalDate.parse(showingDateStr);
-        return eventRepository.getAllByCityAndShowingDate(city, showingDate);
+        return eventRepository.getAllByCityAndShowingDate(city, showingDate, filmId);
     }
 }
