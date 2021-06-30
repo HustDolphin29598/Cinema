@@ -47,14 +47,16 @@ public class OrderService {
                 throw new NotFoundException(orderLineId + " not found", "OrderLine");
             }
             Booking booking = orderLine.getBooking();
-            if(booking.getStatus() == BookingStatus.IN_PROCESS || booking.getStatus() == BookingStatus.RESERVED){
-                throw new LogicException("Booking is already reserved or in processing !");
-            }
-            booking.setStatus(BookingStatus.IN_PROCESS);
-            bookingRepository.save(booking);
+            synchronized (booking){
+                if(booking.getStatus() == BookingStatus.IN_PROCESS || booking.getStatus() == BookingStatus.RESERVED){
+                    throw new LogicException("Booking is already reserved or in processing !");
+                }
+                booking.setStatus(BookingStatus.IN_PROCESS);
+                bookingRepository.save(booking);
 
-            totalAmount += orderLine.getBooking().getPrice();
-            orderLineList.add(orderLine);
+                totalAmount += orderLine.getBooking().getPrice();
+                orderLineList.add(orderLine);
+            }
         }
 
         Customer customer = orderLineList.get(0).getCustomer();

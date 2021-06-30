@@ -41,4 +41,9 @@ public class EventService {
         LocalDate showingDate = LocalDate.parse(showingDateStr);
         return eventRepository.getAllByCityAndShowingDate(city, showingDate, filmId);
     }
+
+    public List<Event> getAllByCityAndShowingDateAndCinema(String city, String showingDateStr, int filmId, String cinemaName){
+        LocalDate showingDate = LocalDate.parse(showingDateStr);
+        return eventRepository.getAllByCityAndShowingDateAndCinema(city, showingDate, filmId, cinemaName);
+    }
 }

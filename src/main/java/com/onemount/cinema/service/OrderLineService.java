@@ -51,16 +51,17 @@ public class OrderLineService {
             throw new NotFoundException(bookingId + " is not found", "Booking");
 
         }
-        OrderLine orderLine = OrderLine.builder()
-                .time(new Time(new Date(), new Date()))
-                .customer(customer)
-                .booking(booking)
-                .build();
 
         BookingStatus bookingStatus = booking.getStatus();
         if(bookingStatus == BookingStatus.IN_PROCESS || bookingStatus == BookingStatus.RESERVED){
             throw new LogicException("Booking is already reserved or in processing !");
         }
+
+        OrderLine orderLine = OrderLine.builder()
+                .time(new Time(new Date(), new Date()))
+                .customer(customer)
+                .booking(booking)
+                .build();
 
         orderLineRepository.save(orderLine);
         return orderLine;

@@ -39,4 +39,8 @@ public class EventController {
         return eventService.getAllByCityAndShowingDate(city, showingDate, filmId);
     }
 
+    @GetMapping("/city/{city}/date/{showingDate}/cinema/{cinemaName}/filmId/{filmId}")
+    public List<Event> getEventByCity(@PathVariable String city, @PathVariable String showingDate, @PathVariable String cinemaName, @PathVariable int filmId){
+        return eventService.getAllByCityAndShowingDateAndCinema(city, showingDate, filmId, cinemaName);
+    }
 }

@@ -35,4 +35,12 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
             "ON r.cinema.id = c.id\n" +
             "WHERE c.city = ?1 and e.showingDate  = ?2 and e.film.id = ?3")
     List<Event> getAllByCityAndShowingDate(String city, LocalDate showingDate, int filmId);
+
+    @Query("SELECT e from event e\n" +
+            "LEFT JOIN room r \n" +
+            "ON r.id = e.room.id\n" +
+            "LEFT JOIN cinema c\n" +
+            "ON r.cinema.id = c.id\n" +
+            "WHERE c.city = ?1 and e.showingDate  = ?2 and e.film.id = ?3 and c.name = ?4")
+    List<Event> getAllByCityAndShowingDateAndCinema(String city, LocalDate showingDate, int filmId, String cinemaName);
 }

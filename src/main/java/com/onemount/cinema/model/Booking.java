@@ -23,19 +23,15 @@ public class Booking {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "event_id")
-//    @JsonBackReference
-//    @JsonIgnore
     private Event event;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "seat_id")
-//    @JsonBackReference
     private Seat seat;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "booking_id")
     @JsonIgnore
-//    @JsonManagedReference
     private List<OrderLine> orderLineList = new ArrayList<>();
 
     private int price;
