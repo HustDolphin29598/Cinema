@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.onemount.cinema.enums.CustomerType;
+import com.onemount.cinema.request.RegisterRequest;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,25 +18,11 @@ import java.util.List;
 @NoArgsConstructor
 @Entity(name = "customer")
 @Table(name = "customer")
-public class Customer {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-    private String userName;
+public class Customer extends User{
 
     private String fullName;
 
-    private String hashedPassword;
-
     private String address;
-
-    private String phone;
-
-    private Date createdAt;
-
-    private Date updatedAt;
 
     private int point;
 
@@ -52,14 +39,10 @@ public class Customer {
 //    @Transient
 //    public getOrder
 
-    public Customer(String userName, String fullName, String hashedPassword, String address, String phone, Date createdAt, Date updatedAt, int point, CustomerType type) {
-        this.userName = userName;
+    public Customer(String fullName, String password, String address, String phone, String email,  int point, CustomerType type) {
+        super(password, phone, email);
         this.fullName = fullName;
-        this.hashedPassword = hashedPassword;
         this.address = address;
-        this.phone = phone;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
         this.point = point;
         this.type = type;
     }

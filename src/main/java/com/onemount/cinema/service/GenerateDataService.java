@@ -87,8 +87,8 @@ public class GenerateDataService {
     @Transactional
     public void generateCustomer(){
 
-        Customer customer1 = new Customer("hust_dolphin", "Nguyen Van Huy", faker.code().imei(), "Ha Noi", "012909120192",
-                new Date(), new Date(), 100, CustomerType.VIP);
+        Customer customer1 = new Customer("Nguyen Van Huy", faker.code().imei(), "Ha Noi", "012909120192",
+                "hmmmm@mail.com", 100, CustomerType.VIP);
 
         int randNum = rand.nextInt(2);
         List<Order> orderList1 = new ArrayList<>();
@@ -115,8 +115,8 @@ public class GenerateDataService {
         order1.setCustomer(customer1);
         orderList1.add(order1);
         orders.add(order1);
-        Customer customer2 = new Customer("zzzXZZZZXzzz", "Nguyen Van Z", faker.code().imei(), "Ha Noi", "0129827287312",
-                new Date(), new Date(), 10, CustomerType.NORMAL);
+        Customer customer2 = new Customer("Nguyen Van Z", faker.code().imei(), "Ha Noi", "0129827287312",
+                "test@mail.com", 10, CustomerType.NORMAL);
         List<Order> orderList2 = new ArrayList<>();
         Order order2 = new Order(null, OrderStatus.FAILURE);
         List<OrderLine> orderLineList2 = new ArrayList<>();
@@ -347,11 +347,13 @@ public class GenerateDataService {
 
     @Transactional
     public void generateBooking(){
+        Random rand = new Random();
         for(Event event: events){
-            int price = faker.number().numberBetween(50,100)*1000;
+            int n = (50 + rand.nextInt(50)) *1000;
+            int price = n;
             for (Seat seat: event.getRoom().getSeats()){
                 if(seat.getType() == SeatType.VIP)
-                    price = (int) (price *1.4);
+                    price = (int) (n *1.3);
                 Booking booking = new Booking(event, seat, price, BookingStatus.AVAILABLE);
                 bookings.add(booking);
             }

@@ -42,4 +42,9 @@ public class FilmController {
                 .contentLength(inputStream.contentLength())
                 .body(inputStream);
     }
+
+    @PostMapping("/test")
+    public String test(){
+        return "ok";
+    }
 }
