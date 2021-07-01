@@ -5,7 +5,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "user")
 @Table(name = "user")
 @Data
 @Inheritance(strategy = InheritanceType.JOINED)
