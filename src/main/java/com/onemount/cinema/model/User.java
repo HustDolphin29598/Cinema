@@ -5,8 +5,8 @@ import lombok.Data;
 
 import javax.persistence.*;
 
-@Entity(name = "user")
-@Table(name = "user")
+@Entity(name = "users")
+@Table(name = "users")
 @Data
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User {
