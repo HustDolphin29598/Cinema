@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @RestController
@@ -17,7 +20,18 @@ public class BookingController {
 
     @GetMapping(value = "", params = "eventId")
     public List<Booking> getBookingByEventId(@RequestParam int eventId){
-        return bookingService.getAllByEventId(eventId);
+        List<Booking> bookingList = bookingService.getAllByEventId(eventId);
+        Collections.sort(bookingList, new Comparator<Booking>() {
+            @Override
+            public int compare(Booking booking1, Booking booking2) {
+                if(!booking1.getSeat().getRow().equals(booking2.getSeat().getRow())){
+                    return booking1.getSeat().getRow().compareTo(booking2.getSeat().getRow());
+                }else{
+                    return booking1.getSeat().getColumn() - booking2.getSeat().getColumn();
+                }
+            }
+        });
+        return bookingList;
     }
 
     @GetMapping(value = "/eventId/{eventId}/seatId/{seatId}")
