@@ -315,9 +315,9 @@ public class GenerateDataService {
     public void generateEvent() throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        LocalDate[] dateList = {LocalDate.of(2021, 6, 20),
-                                LocalDate.of(2021, 6, 21),
-                                LocalDate.of(2021, 6, 22)};
+        LocalDate[] dateList = {LocalDate.of(2021, 7, 6),
+                                LocalDate.of(2021, 7, 7),
+                                LocalDate.of(2021, 7, 8)};
         LocalTime[] startTimeList = {LocalTime.of(8,0,0), LocalTime.of(10, 0, 0),
                                      LocalTime.of(12,0,0), LocalTime.of(14, 0, 0),
                                      LocalTime.of(16,0,0), LocalTime.of(18, 0, 0),
